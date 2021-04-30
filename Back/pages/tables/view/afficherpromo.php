@@ -297,7 +297,10 @@ include '../controller/promotionC.php';
 					<td><?PHP echo $promotion['reduction']; ?></td>
                     <td><?PHP echo $promotion['duree']; ?></td>
                     <td><?PHP echo $promotion['description']; ?></td>
-                    <td><?PHP echo '<img src="data:image/jpeg;base64,'.base64_encode($promotion['image']).'" width ="100" height="100" />';?></td>
+                    <?php
+                      echo "<td>";?> <img src="<?php echo $promotion["image"]; ?>"height = "100" width ="100"> <?php echo "</td>";
+                    ?>
+                    
 				
 			      
 					<td>

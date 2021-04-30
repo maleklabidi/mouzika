@@ -59,15 +59,16 @@
      </div>
      <!--/ bradcam_area  -->
     <!-- Start Align Area -->
-
     <?PHP
 		foreach($listepromo as $circ){
 	?> 
 	
     <table  class="responstable">
-	<tbody>
+	<tbody> 
 		<tr>
-			<td rowspan="5"><?PHP echo '<img src="data:image/jpeg;base64,'.base64_encode($circ['image']).'" width ="330" height="330" />'; ?></td>
+            <?php
+                 echo "<td rowspan='5'>";?> <img src="../AdminLTE-master/pages/tables/view/<?php echo $circ["image"]; ?>"height = "330" width ="330"> <?php echo "</td>";
+            ?>
 			<td colspan="3"><?PHP echo $circ['nom']; ?></td>
 		</tr>
 		<tr>

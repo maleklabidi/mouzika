@@ -6,6 +6,15 @@
 	$error = "";
 	$promotion = null; 
  
+if(isset($_POST['Confirmer']))
+{
+  $img = $_FILES['image']['name'];
+  $img_loc = $_FILES['image']['tmp_name'];
+  $img_folder = "display/";
+  $img_folder_1 = "mouzika/display/";
+  move_uploaded_file($img_loc,$img_folder.$img);
+  move_uploaded_file($img_loc,$img_folder_1.$img);
+}
 
 	$promotionC = new promotionC();
 	if (
@@ -14,16 +23,14 @@
         isset($_POST["nom"]) && 
         isset($_POST["reduction"]) && 
         isset($_POST["duree"]) &&  
-        isset($_POST["description"]) &&
-        isset($_POST["image"])
+        isset($_POST["description"]) 
 	) {
 		if (!empty($_POST["id_artiste"]) && 
             !empty($_POST["id_produit"]) &&
             !empty($_POST["nom"]) &&
             !empty($_POST["reduction"]) &&
             !empty($_POST["duree"]) &&
-            !empty($_POST["description"]) &&
-            !empty($_POST['image'])
+            !empty($_POST["description"]) 
 		) {
 			$promotion = new promotion(
         
@@ -33,7 +40,7 @@
                 $_POST['reduction'],
                 $_POST['duree'],
                 $_POST['description'],
-				        $_POST['image'] 
+                'display/'.$_FILES['image']['name']
 			);
 			$promotionC->ajouterpromotion($promotion);
 			header('Location:afficherpromo.php');
@@ -334,7 +341,7 @@
   <p id="error12" class = "error"></p>
   <div>
   <div class="signup-form">
-                    <form method="POST" class="register-form" id="form">
+                    <form method="POST" class="register-form" id="form" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="form-group">
                                 <div class="form-input">
@@ -350,7 +357,7 @@
                                     <input type="text" name="nom" id="nom" />
                                 </div>
                                 <div class="form-input">
-                                    <label for="reduction" class="required">reduction</label>
+                                    <label for="reduction" class="required">reduction</label> 
                                     <input type="text" name="reduction" id="reduction" />
                                 </div>
                             </div>
@@ -358,7 +365,7 @@
                                 <div class="form-select">
                                     <div class="label-flex">
                                         <label for="description">description</label>
-                                        <input type="text" name="description" id="description" maxlength="50"><br>
+                                        <input type="text" name="description" id="description"><br>
                                     </div>
                                 </div>
                                 <div class="form-input">
@@ -372,7 +379,7 @@
                             </div>
                         </div>
                         <div class="form-submit">
-                            <input type="submit" value="Confirmer" class="submit" id="Confirmer" name="Confirmer" />
+                            <input type="submit" value="Confirmer" class="submit" id="Confirmer" name="Confirmer" /> 
                             <input type="reset" value="Reset" class="submit" id="reset" name="reset" />
                         </div>
                     </form>
