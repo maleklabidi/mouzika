@@ -1,18 +1,5 @@
-<?php
-$verif_titre=0;
-$alert_ptitre ="pas de titre!";
-if( preg_match ( " /^[a-zA-Z]{2,}$/ " , $_POST['titre'] )==1 )
-$post->ajouterPost($post);
-else 
-        {
-          if(preg_match ( " /^[a-zA-Z]{2,}$/ " , $_POST['titre'] )==0){$verif_titre=1;}
-            
-        }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -876,50 +863,15 @@ else
 						<div class="row">
 							<div class="col-lg-10">
 								<div class="contact-form">
-									<h3><i class="fa fa-envelope-o"></i>Poster</h3>
-									<form name="formulaire" onsubmit="" action="ajouter-post.php" method="POST">
-									<div class="row">
-										<div class="col-lg-12">
-												<div class="checkout-form-list">
-													<input type="text"  name="titre" id="titre"  placeholder="Titre" />
-                          <?php
-                            if($verif_titre==1){
-                              echo $alert_ptitre;
-                              $verif_titre=0;
-                         
-                              }         
-                          ?>
-													<input name="id_client"  type="hidden" value="01" />
-											</div>
-										</div>
-										
-									<div class="col-lg-12 ">
-											<div class="country-select">
-												
-												<select name="categorie" id="categorie" class="chosen-select" tabindex="1" style="width:100%;" data-placeholder="Default Sorting">
-													<option >Selectioner Une Categorie</option>
-													<option value="music&genres">music&genres</option>
-                          <option value="music&psychology">music&psychology</option>
-                          <option value="life&music">life&music</option>
-                          <option value="musicians">musicians</option>
-
-												</select>
-											</div>
-
-									</div>
-                  <input type="file"
-                id="image" name="image"
-       accept="image/png, image/jpeg">
-								
-
-									
+									<h3><i class="fa fa-envelope-o"></i>Poser une question</h3>
+									<form name="formulaire" onsubmit="verif()" action="ajouter-question.php" method="POST">
+						
 									<div class="col-lg-12 ">
 											<div class="checkout-form-list">
 										
-											<textarea  cols="130" rows="4"  name="msg" placeholder="Post"></textarea>
+											<textarea  cols="130" rows="4"  name="msg" placeholder="confirmer"></textarea>
 									</div>
-									</div>	
-									</div>
+									
 									<div class="single-register">
 											<input class="confirmer" type="submit" value="Poster">
 									</div>

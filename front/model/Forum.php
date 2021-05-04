@@ -34,7 +34,8 @@ function __construct($titre,$categorie,$post,$image,$id_patient)
     }   
 
 }
-    class Commentaire
+
+class Commentaire
 {
    private $comment;
 

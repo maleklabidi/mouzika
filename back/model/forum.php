@@ -48,6 +48,20 @@ function __construct($comment)
     }   
  }
 
+ class question
+ {
+    private $texte;
+ 
+ function __construct($texte)
+  {
+         $this->texte=$texte;        
+     }
+  public function get_texte() 
+     {
+         return $this->texte;
+     }   
+  }
+
 
 
 

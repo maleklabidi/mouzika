@@ -14,7 +14,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- <link rel="manifest" href="site.webmanifest"> -->
-   <link rel="shortcut icon" type="image/x-icon" href="C:/xampp/htdocs/projet_web/front/img/logo.png">
+   <link rel="shortcut icon" type="image/x-icon" href="../img/logo.png">
    <!-- Place favicon.ico in the root directory -->
 
    <!-- CSS here -->
@@ -45,9 +45,9 @@
                       <div class="row align-items-center">
                           <div class="col-xl-3 col-lg-2">
                               <div class="logo">
-                                  <a href="index.html">
-                                      <img src="C:/xampp/htdocs/projet_web/front/img/logo.png" alt="">
-                                  </a>
+                              <a href="index.html">
+                                        <img src="../img/logo.png" alt="">
+                                    </a>
                               </div>
                           </div>
                           <div class="col-xl-6 col-lg-7">
@@ -125,8 +125,8 @@
 							    			$posts=$post->afficherPost();
 							    			$max=$post->maxPost();
 							    			$min=$post->minPost();
-											$coment=$post->recupererCommentaire($_GET['id']);
-											$number_of_rows = $coment->rowCount(); 
+											$comment=$post->recupererCommentaire($_GET['id']);
+											$number_of_rows = $comment->rowCount(); 
 											/*foreach ($cli as $val1) {
 											$nom=$val1['nom'];
 											}*///pour afficher l'utilisateur 
@@ -137,6 +137,15 @@
 											$min1=$val1['min_post'];
 											}
 											foreach ($result as $val) {?>
+
+<div class="blog-2-img">
+												 <a href="forum-detail.php?id=<?php echo$val['id']; ?>"><img src="
+                         <?php 
+                            echo "../".$val['image'];
+                         ?>"
+                          alt="man" /> 
+                          </a>
+											</div>             
 								<h3><a href="#"><?php echo $val['categorie'];?></a></h3>
 								<div class="blog-info">
 									<h3><a href="#"><?php echo $val['titre'];?></a></h3>
@@ -167,7 +176,7 @@
 									
 									<?php 
 									
-									foreach ($coment as $val2) {
+									foreach ($comment as $val2) {
 										?>
 									<!-- single-comments-start -->
 									<div class="single-comments single-comments-2">
@@ -184,12 +193,12 @@
                                             $day  = $date1[2];
                                             $monthName = date("F", mktime(0, 0, 0, $month, 10));?>
 											<span><?php echo $monthName." ".$day.", ".$year." at ".$time1; ?></span>
-											<p><?php echo $val2['comment']; ?></p>
+											<p><?php echo $val2['comment']; ?></p> 
 				
 											
 										</div>
 									</div>
-									<?php } ?>
+									<?php } ?>  
 									<!-- single-comments-end -->
 								</div>
 								<!-- comments-area-end -->

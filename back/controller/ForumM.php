@@ -5,18 +5,17 @@ include "model/Forum.php";
 
 class ForumManage
 {
-public function ajouterPost($post) 
+    public function ajouterPost($post) 
     {
         $db=config::getConnexion();
         
-        $req="INSERT INTO `post`(`titre`, `categorie`, `post`) VALUES (:titre,:categorie,:post)";
-    
+        $req="INSERT INTO `post`(`titre`, `categorie`, `post`, `image`, `date_post`) VALUES (:titre,:categorie,:post,:image,now())";
         $sql=$db->prepare($req);
         
         $sql->bindValue(':titre',$post->get_titre());
         $sql->bindValue(':categorie',$post->get_categorie());
         $sql->bindValue(':post',$post->get_post());
-       
+        $sql->bindValue(':image',$post->get_image());
       
          if($sql->execute())
          {
@@ -26,7 +25,25 @@ public function ajouterPost($post)
             else
                  echo "<meta http-equiv=\"refresh\" content=\"0;URL=ajouter-post.php\">"; 	
        
-    } 
+    }  
+
+    public function ajouterquestion($texte) 
+    {
+        $db=config::getConnexion();
+        
+        $req="INSERT INTO `post`(`question`) VALUES (:question)";
+    
+        $sql=$db->prepare($req); 
+        
+        $sql->bindValue(':question',$post->get_question());
+        
+        if($sql->execute())
+        echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum.php\">"; 
+   else
+        echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum.php\">";  
+ 
+    }  
+
     public function ajouterLike($id_post) 
     {
         $db=config::getConnexion();
@@ -110,7 +127,7 @@ public function ajouterPost($post)
                  echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum.php\">"; 
 
     }
-     public function supprimerComment($id,$id_post)
+    public function supprimerComment($id,$id_post)
     {
          $db=config::getConnexion();
         $sql=$db->prepare("DELETE FROM commentaire WHERE id= $id");
@@ -118,13 +135,11 @@ public function ajouterPost($post)
                  echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum-detail.php?id=".$id_post."\">"; 
             else
                    echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum-detail.php?id=".$id_post."\">"; 
-
     }
-public function modifierPost($post,$id_post)
+
+ public function modifierPost($post,$id_post) 
     {
        
-      
-        
         $db=config::getConnexion();
         
         $req="UPDATE `post` SET `titre`=:titre,`categorie`=:categorie,`post`=:post,`date_post`=now() WHERE id=$id_post";
@@ -154,6 +169,7 @@ public function modifierPost($post,$id_post)
             die('Erreur: '.$e->getMessage());
         }
     }
+    
 
 }
 

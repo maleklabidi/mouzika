@@ -1,6 +1,6 @@
 <?php
 include 'controller/ForumM.php';
 
-$var2=new ForumManage();
-$var2->supprimerComment($_GET['id'],$_GET['id_post']);
-?>
+$val2=new ForumManage();
+$val2->supprimerComment($_GET['id'],$_GET['id_post']);
+?>  

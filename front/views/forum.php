@@ -1,3 +1,15 @@
+<?php
+include_once '../controller/ForumM.php';
+$post=new ForumManage();
+$posts=$post->afficherPost();
+
+if ((isset($_POST["recherche"]))&& (isset($_POST["colonne"]))){
+    if (!empty(isset($_POST["recherche"]))){
+     $n=$_POST["colonne"];
+      $posts=$post->rechercher($_POST["recherche"],$n);
+    } 
+     }
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -9,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
-    <link rel="shortcut icon" type="image/x-icon" href="C:/xampp/htdocs/projet_web/front/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/logo.png">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -41,9 +53,10 @@
                         <div class="row align-items-center">
                             <div class="col-xl-3 col-lg-2">
                                 <div class="logo">
-                                    <a href="../index.html">
-                                        <img src="C:/xampp/htdocs/projet_web/front/img/logo.png" alt="">
+                                <a href="index.html">
+                                        <img src="../img/logo.png" alt="">
                                     </a>
+                                
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-7">
@@ -57,7 +70,7 @@
                                                 <!-- <ul class="submenu">
                                                     <li><a href="blog.html">blog</a></li>
                                                   
-                                                </ul> -->
+                                                </ul> --> 
                                             </li>
                                             <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
@@ -115,7 +128,7 @@
 								<?php 
 											include_once '../controller/ForumM.php';
 											$post=new ForumManage();
-							    			$posts=$post->afficherPost();
+							    			
 				
 											
 											
@@ -139,8 +152,13 @@
 									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 										<!-- single-blog-2-start -->
 										<div class="single-blog single-blog-2 mb-30">
-											<div class="blog-2-img">
-												<!-- <a href="blog-details.html"><img src="<?php //echo $row['image']; ?>" alt="man" /></a>-->
+                                        <div class="blog-2-img">
+												 <a href="forum-detail.php?id=<?php echo$row['id']; ?>"><img src="
+                         <?php 
+                            echo "../".$row['image'];
+                         ?>"
+                          alt="man" /> 
+                          </a>
 											</div>
 											<div class="blog-2-content blog-content">
 												<?php 
@@ -172,14 +190,31 @@
 						<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 							<!-- blog-right-area-start -->
 							<div class="blog-right-area">
+
 								<!-- blog-right-start -->
-								<div class="blog-right mb-50 mb-3">
+                                <form method="POST" action="">
+        <select name="colonne" class=" flex-c-m text-center size-905 bor4 pointer hov-btn3"  style="width: 180px;">
+        <option value="all" >Tous</option>
+          <option value="titre">titre </option>
+          <option value="categorie">Categorie </option>
+          <option value="date_post">date_post</option>
+        </select>
+          <input type="text" name="recherche" placeholder="Rechercher" class=" m-b-10 flex-c-m text-center size-105 bor4 pointer hov-btn3  m-tb-4 "> 
+          <input type="submit" name="chercher" value="Valider" class="m-t-0 flex-c-m text-center size-105 bor4 pointer hov-btn3  m-tb-4" style="width: 180px;">
+
+         
+         </form>
+
+         
+
+								<!-- <div class="blog-right mb-50 mb-3">
 									<form action="recherche.php">
 										<input type="text" placeholder="Search Here"/>
 										<button type="submit"><i class="fa fa-search"></i></button>
 									</form>
-								</div>
+								</div> -->
 						</div>
+                        
 					</div>
 				</div>
 			</div>

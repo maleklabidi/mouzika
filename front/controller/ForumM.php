@@ -1,6 +1,7 @@
 <?php
 
 include "../model/Forum.php";
+require 'classSimpleMail.php';
 
 class ForumManage
 {
@@ -8,15 +9,14 @@ public function ajouterPost($post)
     {
         $db=config::getConnexion();
         
-        $req="INSERT INTO `post`(`titre`, `categorie`, `post`, `image`, `date_post`, `id_patient`) VALUES (:titre,:categorie,:post,:image,now(),:id_patient)";
-        $id=$post->get_id_patient();
+        $req="INSERT INTO `post`(`titre`, `categorie`, `post`, `image`, `date_post`) VALUES (:titre,:categorie,:post,:image,now())";      
         $sql=$db->prepare($req);
         
         $sql->bindValue(':titre',$post->get_titre());
         $sql->bindValue(':categorie',$post->get_categorie());
         $sql->bindValue(':post',$post->get_post());
         $sql->bindValue(':image',$post->get_image());
-        $sql->bindValue(':id_patient',$post->get_id_patient());
+      
       
          if($sql->execute())
          {
@@ -57,6 +57,23 @@ public function ajouterPost($post)
       
          if($sql->execute())
          {
+            $mail = new SimpleMail('smtp.gmail.com', 587, 'tls');
+            $mail->auth('wissal.soudani@esprit.tn', '191JFTWISSAL');
+
+            $mail->from('Contact@Mouzika.tn', 'Mouzika');
+            // to->mail taa l admin
+            $mail->to('wissal.tozeur@gmail.com', 'Admin');
+
+            $mail->subject = 'Notification';
+            $mail->message = '<h3>Comment</h3>
+                  <b>'.$nom.' a commenté votre article </b> <p>'.strval($id_post).'</p>';
+
+            if ($mail->send())
+	            echo 'Mail sent successfully.';
+            else
+	            echo 'Error: ' . $mail->error;
+            
+                 
                  echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum-detail.php?id=".$id_post."\">"; 
                }
             else
@@ -154,6 +171,42 @@ public function modifierPost($post,$id_post)
             die('Erreur: '.$e->getMessage());
         }
     }
+
+    function rechercher($input,$colonne) {
+        if($colonne == "all") 
+        {        $sql = "SELECT * from post WHERE ( titre LIKE \"%$input%\") OR ( categorie LIKE \"%$input%\") OR ( date_post LIKE \"%$input%\") ";
+       } else {
+   $sql = "SELECT * from post WHERE ( $colonne LIKE \"%$input%\")  "; }
+   $db = config::getConnexion();
+   try { $posts=$db->query($sql); 
+    
+
+       return $posts;
+   }
+   catch (PDOException $e) {
+       $e->getMessage();
+   }
+
+
+}
+
+function SendMail($to,$comment)
+{
+$mail = new SimpleMail('smtp.gmail.com', 587, 'tls');
+$mail->auth('chiheb.chikhaoui@esprit.tn', '181JMT3508');
+
+$mail->from('burt.johnson@hotmail.com', 'AL MAZAYA CARTHAGE');
+$mail->to($to, 'John Smith');
+
+$mail->subject = 'Notification';
+$mail->message = '<h3>Comment </h3>
+                  <b>Someone Cemmented on your post: </b> '.$comment;
+
+if ($mail->send())
+	echo 'Mail sent successfully.';
+else
+	echo 'Error: ' . $mail->error;
+}
 
 }
 
