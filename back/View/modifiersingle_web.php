@@ -1,8 +1,8 @@
 <?php
-	include '../Model/albums.php';
-	include '../Controller/albumsC.php'; 
+	include '../Model/singles.php';
+	include '../Controller/singlesC.php'; 
 
-	$albumC = new albumsC();
+	$singleC = new singlesC();
 	$error = "";
 
 	?>
@@ -201,13 +201,20 @@
       </div>
 
       <!-- Sidebar Menu -->
+      <!-- 
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+  *********************************************************INTEGRATION HERE**********************************************************
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+-->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
          
                <li class="nav-item">
-            <a href="singles.php" class="nav-link">
+            <a href="singles_web.php" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Singles</p>
             </a>
@@ -225,7 +232,13 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-
+<!-- 
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+  *********************************************************INTEGRATION HERE**********************************************************
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+-->
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -254,7 +267,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Modifiez cet album:</h3>
+                <h3 class="card-title">Modifiez ce single:</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -277,7 +290,7 @@
                   <tbody>
                  
 	
-    <button onclick="location.href='albums_web.php'" class="button">Retour à la liste</button>
+    <button onclick="location.href='singles_web.php'" class="button">Retour à la liste</button>
         <hr>
         
         <div id="error">
@@ -286,7 +299,7 @@
 		
 		<?php
 			if (isset($_GET['id'])){
-                $album = $albumC->recupereralbum($_GET['id']);
+                $single = $singleC->recuperersingle($_GET['id']);
 				
 		?>
      <style>
@@ -311,69 +324,70 @@
                         <label for="id">id:
                         </label>
                     </td>
-                    <td><input type="text" name="id" id="id"  value = "<?php echo $album->id; ?>"></td>
+                    <td><input type="text" name="id" id="id"  value = "<?php echo $single->id; ?>"></td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="title">title:
+                        <label for="title">Nom du single:
                         </label>
                     </td>
-                    <td><input type="text" name="title" id="title"  value = "<?php echo $album->title; ?>"></td>
+                    <td><input type="text" name="single_name" id="single_name"  value = "<?php echo $single->single_name; ?>"></td>
                 </tr>
                 
                 <tr>
                     <td>
-                        <label for="artist">artist:
+                        <label for="artist">Artiste:
                         </label>
                     </td>
                     <td>
-                        <input type="text" name="artist" id="artist"  value = "<?php echo $album->artist; ?>">
+                        <input type="text" name="artist" id="artist"  value = "<?php echo $single->artist; ?>">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="number_of_songs">number_of_songs:
+                        <label for="rate">Note:
                         </label>
                     </td>
                     <td>
-                        <input type="text" name="number_of_songs" id="number_of_songs"  value = "<?php  echo $album->number_of_songs; ?>">
+                        <input type="text" name="rate" id="rate"  value = "<?php  echo $single->rate; ?>">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="release_date">release_date:
+                        <label for="release_date">Date de sortie:
                         </label>
                     </td>
                     <td>
-                        <input type="date" name="release_date" id="release_date" value="<?php echo $album->release_date;?>" >
+                        <input type="date" name="release_date" id="release_date" value="<?php echo $single->release_date;?>" >
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="genre">genre:
+                        <label for="genre">Genre:
                         </label>
                     </td>
                     <td>
-                        <input type="text"  name="genre" id="genre" value=" <?php echo $album->genre;?>">
+                        <input type="text"  name="genre" id="genre" value=" <?php echo $single->genre;?>">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="length">length:
+                        <label for="audio">Audio:
                         </label>
                     </td>
                     <td>
-                        <input type="text"  name="length" id="length" value=" <?php echo $album->length;?>">
+                    <audio preload="auto" controls>  <source src="<?php echo $single->audio; ?>"> </audio> </td>
+                  <td>  <input type="file" name="audio" id="audio" class="button"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label for="cover_image">cover_image:
+                        <label for="artist_image">Image:
                         </label>
                     </td>
                     <td>
-                    <img src="<?php echo $album->cover_image;?>" width ="230" height="230" />
-                    <input type="file" name="cover_image" id="cover_image" class="button"/>
+                    <img src="<?php echo $single->artist_image;?>" width ="230" height="230" /> </td>
+                   <td> <input type="file" name="artist_image" id="artist_image" class="button"/>
                     </td>
                 </tr>
                 <tr>
@@ -394,42 +408,57 @@
 
     if(isset($_POST['modifer']))
 {
-  $img = $_FILES['cover_image']['name'];
-  $img_loc = $_FILES['cover_image']['tmp_name'];
+  $img = $_FILES['artist_image']['name'];
+  $img_loc = $_FILES['artist_image']['tmp_name'];
   $img_folder = "images";
-
   move_uploaded_file($img_loc,"$img_folder/$img");
+  $audio = $_FILES['audio']['name'];
+  $audio_loc = $_FILES['audio']['tmp_name'];
+  $audio_folder = "audio";
+  move_uploaded_file($audio_loc,"$audio_folder/$audio");
+}
+function verif_image($single)
+{
+    if (empty($_FILES["artist_image"]["name"]))
+   return $single->artist_image;
+   else return 'images/'.$_FILES['artist_image']['name'];
+
+}
+function verif_audio($single)
+{
+    if (empty($_FILES["audio"]["name"]))
+   return $single->audio;
+   else return 'audio/'.$_FILES['audio']['name'];
 }
         if (
             isset($_POST["id"]) &&
         isset($_POST["artist"]) && 
-        isset($_POST["title"]) && 
-        isset($_POST["number_of_songs"]) &&  
+        isset($_POST["single_name"]) && 
+        isset($_POST["rate"]) &&  
         isset($_POST["genre"]) &&
-        isset($_POST["length"]) &&
         isset($_POST["release_date"])
         ) {
             if (
                 !empty($_POST["id"]) && 
-                !empty($_POST["artist"]) &&
-                !empty($_POST["title"]) &&
-                !empty($_POST["number_of_songs"]) &&
-                !empty($_POST["genre"]) &&
-                !empty($_FILES["cover_image"]["name"]) &&
+                !empty($_POST["single_name"]) &&
                 !empty($_POST["release_date"]) &&
-                !empty($_POST["length"])
+                !empty($_POST["genre"]) &&
+              //!empty($_FILES["artist_image"]["name"]) &&             artist_image and audio shouldn't be included
+              //  !empty($_FILES["audio"]["name"]) &&                  because you should give the option to not modify them
+                !empty($_POST["rate"]) 
             ) {
-                $album = new Album( 
+                $single = new Single( 
                     $_POST['id'], 
                     $_POST['artist'],
-                    $_POST['title'],
-                    $_POST['number_of_songs'],
+                    $_POST['single_name'],
+                    verif_image($single),
+                    verif_audio($single),
                     $_POST['release_date'],
-                    $_POST['length'],
-                    $_POST['genre'],
-                    'images/'.$_FILES['cover_image']['name'] 
+                    $_POST['rate'],
+                    $_POST['genre']
+                
                 );
-                $albumC->modifieralbum($album,$_POST['id']); 
+                $singleC->modifiersingle($single,$_POST['id']); 
                 echo "<h1>modification faite<h1>";
                 
             }

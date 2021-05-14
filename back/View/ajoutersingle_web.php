@@ -1,19 +1,71 @@
 <?php
-	include '../Model/albums.php';
-	include '../Controller/albumsC.php'; 
+	include_once '../Model/singles.php';
+	include_once '../Controller/singlesC.php'; 
 
-	$albumC = new albumsC();
+  
 	$error = "";
+	$single = null; 
 
-	?>
+ 
+if(isset($_POST['Confirmer']))
+{
+  $img = $_FILES['artist_image']['name'];
+  $img_loc = $_FILES['artist_image']['tmp_name'];
+  $img_folder = "images";
+  move_uploaded_file($img_loc,"$img_folder/$img");
+  $audio = $_FILES['audio']['name'];
+  $audio_loc = $_FILES['audio']['tmp_name'];
+  $audio_folder = "audio";
+  move_uploaded_file($audio_loc,"$audio_folder/$audio");
+}
+
+	$singleC = new singlesC();
+	if (
+		isset($_POST["id"]) &&
+        isset($_POST["artist"]) && 
+        isset($_POST["rate"]) && 
+        isset($_POST["single_name"]) &&  
+        isset($_POST["genre"]) && 
+        isset($_POST["release_date"]) 
+	) {
+		if (!empty($_POST["id"]) && 
+            !empty($_POST["artist"]) &&
+            !empty($_POST["single_name"]) &&
+            !empty($_POST["release_date"]) &&
+            !empty($_POST["genre"]) &&
+            !empty($_FILES["artist_image"]["name"]) &&
+            !empty($_FILES["audio"]["name"]) &&
+            !empty($_POST["rate"]) 
+		) {
+			$single = new Single(
+        
+				$_POST['id'], 
+                $_POST['artist'],
+                $_POST['single_name'],
+                'images/'.$_FILES['artist_image']['name'],
+                'audio/'.$_FILES['audio']['name'],
+                $_POST['release_date'],
+                $_POST['rate'],
+                $_POST['genre']
+			);
+			$singleC->ajoutersingle($single);
+			header('Location:singles_web.php');
+            
+		}
+		else
+			$error = "Missing information";
+	}
+ ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mouzika | Modification</title>
+  <title>Mouzika | Ajouter un single</title>
 
+  <link rel="stylesheet" href="plugins/css/forms.css">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -22,8 +74,16 @@
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- JS CONTROL -->
+  <!-- <script defer src="../controll.js"></script> -->
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+      .error {
+        color: red;
+        padding-bottom: 1mm;
+      }
+      </style>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -168,7 +228,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index.html" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Mouzika Dashboard</span>
     </a>
@@ -181,9 +241,8 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Vous êtes connecté en tant
-              <br>
-              qu'admin.
+          <a href="#" class="d-block">Vous êtes connecté
+              <br> en tant qu'admin.
           </a>
         </div>
       </div>
@@ -205,9 +264,15 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-         
+       <!-- 
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+  *********************************************************INTEGRATION HERE**********************************************************
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+-->  
                <li class="nav-item">
-            <a href="singles.php" class="nav-link">
+            <a href="singles_web.php" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Singles</p>
             </a>
@@ -218,13 +283,21 @@
               <p>Albums</p>
             </a>
           </li>
-         
-        </ul>
+                 
+                </ul>
+              </li>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
   </aside>
+<!-- 
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+  *********************************************************INTEGRATION HERE**********************************************************
+  ***********************************************************************************************************************************
+  ***********************************************************************************************************************************
+-->
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -233,7 +306,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Page de modification</h1>
+            <h1>Ajout d'un single</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -254,7 +327,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Modifiez cet album:</h3>
+                <h3 class="card-title">Votre nouvel single est:</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -275,22 +348,72 @@
                    
                   </thead>
                   <tbody>
-                 
-	
-    <button onclick="location.href='albums_web.php'" class="button">Retour à la liste</button>
-        <hr>
-        
-        <div id="error">
-            <?php echo $error; ?>
-        </div>
-		
-		<?php
-			if (isset($_GET['id'])){
-                $album = $albumC->recupereralbum($_GET['id']);
-				
-		?>
-     <style>
-.button {
+                  <div id="error">
+		<?php echo $error; ?>
+	</div>
+  <p id="error12" class = "error"></p>
+  <div>
+  <div class="signup-form">
+                    <form method="POST" class="register-form" id="form" enctype="multipart/form-data" >
+                        <div class="form-row">
+                            <div class="form-group">
+                            <div class="col-md-7">
+                                <div class="form-input">
+                                    <label for="id" class="required">ID single:</label>
+                                    <input type="text" name="id" id="id" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-input">
+                                    <label for="artist" class="required">Artiste:</label>
+                                    <input type="text" name="artist" id="artist" />
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-input">
+                                    <label for="single_name" class="required">Nom de single:</label>
+                                    <input type="text" name="single_name" id="single_name" />
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-select">
+                                    <div class="label-flex">
+                                        <label for="rate"> Note:</label>
+                                        <input type="text" name="rate" id="rate"><br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-input">
+                                    <label for="genre">Genre:</label>
+                                    <input type="text" name="genre" id="genre" />
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-input">
+                                    <label for="release_date" class="required">Date de sortie:</label> 
+                                    <input type="date" name="release_date" id="release_date" />
+                                </div>
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-4">
+                                <div class="form-input">
+                                    <label for="artist_image">Image:</label>
+                                    <input type="file" name="artist_image" id="artist_image" class="submit"/>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-input">
+                                    <label for="audio">Audio:</label>
+                                    <input type="file" name="audio" id="audio" class="submit"/>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-submit">
+                        <style>
+.submit {
   background-color: #f44336;
   border: none;
   color: white;
@@ -304,148 +427,19 @@
   border-radius: 8px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 } </style> 
-		<form  method="POST" enctype="multipart/form-data">
-            <table align="center">
-                <tr>
-                    <td>
-                        <label for="id">id:
-                        </label>
-                    </td>
-                    <td><input type="text" name="id" id="id"  value = "<?php echo $album->id; ?>"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="title">title:
-                        </label>
-                    </td>
-                    <td><input type="text" name="title" id="title"  value = "<?php echo $album->title; ?>"></td>
-                </tr>
-                
-                <tr>
-                    <td>
-                        <label for="artist">artist:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="text" name="artist" id="artist"  value = "<?php echo $album->artist; ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="number_of_songs">number_of_songs:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="text" name="number_of_songs" id="number_of_songs"  value = "<?php  echo $album->number_of_songs; ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="release_date">release_date:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="date" name="release_date" id="release_date" value="<?php echo $album->release_date;?>" >
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="genre">genre:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="text"  name="genre" id="genre" value=" <?php echo $album->genre;?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="length">length:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="text"  name="length" id="length" value=" <?php echo $album->length;?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="cover_image">cover_image:
-                        </label>
-                    </td>
-                    <td>
-                    <img src="<?php echo $album->cover_image;?>" width ="230" height="230" />
-                    <input type="file" name="cover_image" id="cover_image" class="button"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    <br><br>
-                        <input type="submit" value="modifier" name = "modifer" class="button" onclick="alert('On est entrain de traiter votre modification.')"> 
-                    </td>
-                    <td>
-                    <br><br>
-                        <input type="reset" value="Annuler" class="button" >
-                    </td>
-                </tr>
-            </table>
-        </form>
-		<?php
-		
-    }
+          
+                            <input type="submit" value="Confirmer" class="submit" id="Confirmer" name="Confirmer" /> 
+           
+           
+                            <input type="reset" value="Reset" class="submit" id="reset" name="reset" />
+          
+                        </div>
+                      
+                    </form>
+                </div>
+                </div>
 
-    if(isset($_POST['modifer']))
-{
-  $img = $_FILES['cover_image']['name'];
-  $img_loc = $_FILES['cover_image']['tmp_name'];
-  $img_folder = "images";
 
-  move_uploaded_file($img_loc,"$img_folder/$img");
-}
-        if (
-            isset($_POST["id"]) &&
-        isset($_POST["artist"]) && 
-        isset($_POST["title"]) && 
-        isset($_POST["number_of_songs"]) &&  
-        isset($_POST["genre"]) &&
-        isset($_POST["length"]) &&
-        isset($_POST["release_date"])
-        ) {
-            if (
-                !empty($_POST["id"]) && 
-                !empty($_POST["artist"]) &&
-                !empty($_POST["title"]) &&
-                !empty($_POST["number_of_songs"]) &&
-                !empty($_POST["genre"]) &&
-                !empty($_FILES["cover_image"]["name"]) &&
-                !empty($_POST["release_date"]) &&
-                !empty($_POST["length"])
-            ) {
-                $album = new Album( 
-                    $_POST['id'], 
-                    $_POST['artist'],
-                    $_POST['title'],
-                    $_POST['number_of_songs'],
-                    $_POST['release_date'],
-                    $_POST['length'],
-                    $_POST['genre'],
-                    'images/'.$_FILES['cover_image']['name'] 
-                );
-                $albumC->modifieralbum($album,$_POST['id']); 
-                echo "<h1>modification faite<h1>";
-                
-            }
-            else
-                {
-                $error = "Missing information";
-                echo "<h1>no can doesville baby doll<h1>";
-                 }
-    
-        }
-        
-    ?>
-		
-        <br>
-        <br>
-        <br>
                   </tbody>
                 </table>
               </div>
@@ -458,8 +452,8 @@
   </div>
     </section>
    
- 
-
+  <!-- /.content-wrapper -->
+  
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
