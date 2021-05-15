@@ -298,6 +298,9 @@ include '../Controller/singlesC.php';
                                                 $query->bindValue(':rate',$_POST["star"]);
                                                 $query->bindValue(':id',$_POST["id"]);
                                                 $query->execute();
+
+                                                echo "<meta http-equiv='refresh' content='0'>";
+                                                break;
                                             }   
                                             ?>
                                             </div>
