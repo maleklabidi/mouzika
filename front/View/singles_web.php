@@ -1,4 +1,6 @@
-<?PHP
+<?php
+session_start();
+include '../Model/singles.php';
 include '../Controller/singlesC.php'; 
 
 	$singleC=new singlesC();
@@ -6,7 +8,7 @@ include '../Controller/singlesC.php';
 
 ?>
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -131,6 +133,85 @@ include '../Controller/singlesC.php';
         </div>
     </div>
     <!--/ bradcam_area  -->
+    <style> 
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 150px;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.size { 
+    padding: 100px 100px;
+    background: transparent;
+    border: none !important;
+}
+</style>
     <!-- music_area  -->
 
      <div style="margin-top:30px ;" > 
@@ -143,7 +224,7 @@ include '../Controller/singlesC.php';
 
     <div class="music_area music_gallery inc_padding">
         <div class="container">
-          <?php foreach($listesingles as $single){?>
+          <?php foreach($listesingles as $single):?>
             <div class="row align-items-center justify-content-center mb-20">
                 <div class="col-xl-10">
                     <div class="row align-items-center">
@@ -165,17 +246,82 @@ include '../Controller/singlesC.php';
                                 </div>
                                 <div class="col-xl-3 col-md-3">
                                     <div class="music_btn">
-                                            <a href="#" class="boxed-btn">Evaluer</a>
+                                    <div class="popup">
+
+                                        <!-- The Modal -->
+                                    <div id='myModal-<?= $single['id']?>' class="modal">
+
+                                        <!-- Modal content -->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <span onclick="closeModal()" class="close">&times;</span>
+                                            <h2><?PHP echo $single['single_name']; ?></h2>
+                                            </div>
+                                            <div class="modal-body">
+                                            <p>Donnez une note à ce single:</p>
+                                            
+
+
+                                            <link rel="stylesheet" href="css/rating.css">
+
+
+                                            <form method="POST">
+                                            <?php
+                                            $rating=$single['rate'];
+                                            ?>
+                                            <h2>ID: <?PHP echo $single['id']; ?></h2>
+                                            <input class="star star-5" id="star-5-<?= $single['id']?>" type="radio" name="star" value="5"<?php echo ($rating=='5')?'checked':'' ?>/>
+                                            <label class="star star-5" for="star-5-<?= $single['id']?>"></label>
+                                            <input class="star star-4" id="star-4-<?= $single['id']?>" type="radio" name="star" value="4" <?php echo ($rating=='4')?'checked':'' ?>/>
+                                            <label class="star star-4" for="star-4-<?= $single['id']?>"></label>
+                                            <input class="star star-3" id="star-3-<?= $single['id']?>" type="radio" name="star" value="3" <?php echo ($rating=='3')?'checked':'' ?>/>
+                                            <label class="star star-3" for="star-3-<?= $single['id']?>"></label>
+                                            <input class="star star-2" id="star-2-<?= $single['id']?>" type="radio" name="star" value="2" <?php echo ($rating=='2')?'checked':'' ?>/>
+                                            <label class="star star-2" for="star-2-<?= $single['id']?>"></label>
+                                            <input class="star star-1" id="star-1-<?= $single['id']?>" type="radio" name="star" value="1"<?php echo ($rating=='1')?'checked':'' ?>/>
+                                            <label class="star star-1" for="star-1-<?= $single['id']?>"></label>
+                                            <input type="hidden" name="id" value="<?PHP echo $single['id']; ?>">
+                                            <input type="submit" value="Confirmer" name="confirmer" class='btn btn-info'>
+                                            </form>
+
+                                            <script src="https://kit.fontawesome.com/5ea815c1d0.js"></script>
+                                            <?php 
+                                            //TO APPLY THE CHANGES
+                                            if (isset($_POST['confirmer']))
+                                            {   
+                                                
+                                                $db = config::getConnexion();
+				                                $query = $db->prepare('UPDATE singles SET 
+						                        rate = :rate
+					                            WHERE id = :id'
+                                                );
+                                                $query->bindValue(':rate',$_POST["star"]);
+                                                $query->bindValue(':id',$_POST["id"]);
+                                                $query->execute();
+                                            }   
+                                            ?>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <h3><?PHP echo $single['artist']; ?></h3>
+                                            </div>  
+                                        </div>
+
+                                    </div>
+                                </div>
+                                    
+                                    <button id="myBtn" name="modal" class="btn btn-info" onclick="ShowModal('myModal-<?= $single['id']?>')">Evaluer</button>
+                                    
                                     </div>
                                 </div>
                     </div>
+                    
                 </div>
 
             </div>
             
             
-            <?PHP
-				}
+            <?php
+				endforeach;
 			?> 
 
             </div>
@@ -334,6 +480,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     });
                 });
             </script>
+<script>
+
+// Get the modal
+var latest_modal
+
+// When the user clicks the button, open the modal 
+const ShowModal = (id) =>
+{
+    var modal = document.getElementById(id);
+    modal.style.display = "block";
+    latest_modal = modal;
+}    
+
+// When the user clicks on <span> (x), close the modal
+const closeModal = () =>
+{
+    latest_modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == latest_modal) {
+        latest_modal.style.display = "none";
+    }
+}
+
+</script>
 </body>
 
 </html>

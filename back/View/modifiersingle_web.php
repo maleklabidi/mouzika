@@ -393,7 +393,7 @@
                 <tr>
                     <td>
                     <br><br>
-                        <input type="submit" value="modifier" name = "modifer" class="button" onclick="alert('On est entrain de traiter votre modification.')"> 
+                        <input type="submit" value="modifier" name = "modifier" class="button" onclick="alert('On est entrain de traiter votre modification.')"> 
                     </td>
                     <td>
                     <br><br>
@@ -406,7 +406,7 @@
 		
     }
 
-    if(isset($_POST['modifer']))
+    if(isset($_POST['modifier']))
 {
   $img = $_FILES['artist_image']['name'];
   $img_loc = $_FILES['artist_image']['tmp_name'];

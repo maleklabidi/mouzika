@@ -1,4 +1,4 @@
-<?PHP
+<?php
 include '../Controller/albumsC.php'; 
 
 	$albumC=new albumsC();
