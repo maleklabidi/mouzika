@@ -13,6 +13,7 @@ if(isset($_POST['Confirmer']))
   $img_loc = $_FILES['artist_image']['tmp_name'];
   $img_folder = "images";
   move_uploaded_file($img_loc,"$img_folder/$img");
+
   $audio = $_FILES['audio']['name'];
   $audio_loc = $_FILES['audio']['tmp_name'];
   $audio_folder = "audio";
