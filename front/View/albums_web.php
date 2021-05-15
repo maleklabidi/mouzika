@@ -217,84 +217,55 @@ include '../Controller/albumsC.php';
     <div class="youtube_video_area">
         <div class="container-fluid p-0">
             <div class="row no-gutters">
-                <?php $counter=1;
-                foreach($listealbum as $album){?>
-                <div class="col-xl-3 col-lg-3 col-md-6">
-                    <div class="single_video">
-                        <div class="thumb">
-                            <img src="<?php echo "../../back/View/".$album["cover_image"]; ?>"  width="150" height="300" alt="">
-                        </div>
-                        <div class="hover_elements">
-                       
-<!-- Trigger/Open The Modal -->
- <div class="popup">
-<button id="myBtn" class="size">teeeeeeest</button>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2><?PHP echo $album['title']; ?></h2>
-    </div>
-    <div class="modal-body">
-      <p>Some text in the Modal Body</p>
-      <p>Some other text...</p>
-    </div>
-    <div class="modal-footer">
-      <h3><?PHP echo $album['artist']; ?></h3>
-    </div>
-  </div>
-
-</div>
- </div>
-
-<script>
-// Get the modal
+                <?php 
 
 
-// Get the button that opens the modal
-//var btn = document.getElementById("myBtn");
+                foreach($listealbum as $album):?>
+                    <div class="col-xl-3 col-lg-3 col-md-6">
+                        <div class="single_video">
+                            <div class="thumb">
+                                <img src="<?php echo "../../back/View/".$album["cover_image"]; ?>" style="object-fit: cover;" width="150" height="300" alt="">
+                            </div>
+                            <div class="hover_elements">
+                                                
+                            <!-- Trigger/Open The Modal -->
+                                <div class="popup">
 
-// Get the <span> element that closes the modal
-//var span = document.getElementsByClassName("close")[0];
-var classname = document.getElementsByClassName("popup");
-var modal = document.getElementById("myModal");
-// When the user clicks the button, open the modal 
-//btn.onclick = function() {
-//  modal.style.display = "block";
-//}
+                                        <!-- The Modal -->
+                                    <div id='myModal-<?= $album['id']?>' class="modal">
 
-// When the user clicks on <span> (x), close the modal
-//span.onclick = function() {
- // modal.style.display = "none";
-//}
-var showModal = function() {
-    modal.style.display = "block";
-};
+                                        <!-- Modal content -->
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <span onclick="closeModal()" class="close">&times;</span>
+                                            <h2><?PHP echo $album['title']; ?></h2>
+                                            </div>
+                                            <div class="modal-body">
+                                            <p>Some text in the Modal Body</p>
+                                            <p>Some other text...</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <h3><?PHP echo $album['artist']; ?></h3>
+                                            </div>  
+                                        </div>
 
-for (var i = 0; i < classname.length; i++) {
-    classname[i].addEventListener('click', showModal, false);
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-</script>
+                                    </div>
+                                </div>
 
-                            <div class="hover_inner">
-                                <span><?PHP echo $album['release_date']; ?></span>
-                                <h3><a href="#"><?PHP echo $album['title']; ?> - <?PHP echo $album['number_of_songs']; ?> songs</a></h3>
+                                <div class="hover_inner">
+                                    <span><?PHP echo $album['release_date']; ?></span>
+                                    <h3><a href="#"><?PHP echo $album['title']; ?> - <?PHP echo $album['number_of_songs']; ?> songs</a></h3>
+                                    <span>
+                                        <button id="myBtn" name="modal" class="btn btn-info" onclick="ShowModal('myModal-<?= $album['id']?>')">Info</button>
+                                    <span>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
-                </div>
-                
-              <?php  } ?>
+                <?php endforeach; ?>
+
+
             </div>
         </div>
     </div>
@@ -454,5 +425,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                 });
             </script>
 </body>
+
+    <script>
+
+        // Get the modal
+        var latest_modal
+
+        // When the user clicks the button, open the modal 
+        const ShowModal = (id) =>
+        {
+            var modal = document.getElementById(id);
+            modal.style.display = "block";
+            latest_modal = modal;
+        }    
+
+        // When the user clicks on <span> (x), close the modal
+        const closeModal = () =>
+        {
+            latest_modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == latest_modal) {
+                latest_modal.style.display = "none";
+            }
+        }
+        
+    </script>
 
 </html>
