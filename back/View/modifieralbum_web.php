@@ -207,7 +207,7 @@
                with font-awesome or any other icon font library -->
          
                <li class="nav-item">
-            <a href="singles.php" class="nav-link">
+            <a href="singles_web.php" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Singles</p>
             </a>
@@ -382,6 +382,9 @@
                         <input type="submit" value="modifier" name = "modifer" class="button" onclick="alert('On est entrain de traiter votre modification.')"> 
                     </td>
                     <td>
+                    <input type="hidden" name="old_id" value="<?php echo $album->id;?>">
+                    </td>
+                    <td>
                     <br><br>
                         <input type="reset" value="Annuler" class="button" >
                     </td>
@@ -429,7 +432,7 @@
                     $_POST['genre'],
                     'images/'.$_FILES['cover_image']['name'] 
                 );
-                $albumC->modifieralbum($album,$_POST['id']); 
+                $albumC->modifieralbum($album,$_POST['old_id']); 
                 echo "<h1>modification faite<h1>";
                 
             }

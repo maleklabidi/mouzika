@@ -68,10 +68,10 @@
                         genre = :genre
 
 						
-					WHERE id = :id'
+					WHERE id = :old_id'
 				);
-
-				$query->bindValue(':id',$id);
+                $query->bindValue(':id',$single->get_id());
+				$query->bindValue(':old_id',$id);
 				$query->bindValue(':artist',$single->get_artist());
 				$query->bindValue(':single_name',$single->get_single_name());
 				$query->bindValue(':artist_image',$single->get_artist_image());
@@ -84,6 +84,7 @@
 			} catch (PDOException $e) {
 				$e->getMessage();
 			}
+			
 		}
 
 

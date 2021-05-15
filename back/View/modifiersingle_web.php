@@ -396,6 +396,9 @@
                         <input type="submit" value="modifier" name = "modifier" class="button" onclick="alert('On est entrain de traiter votre modification.')"> 
                     </td>
                     <td>
+                    <input type="hidden" name="old_id" value="<?php echo $single->id;?>">
+                    </td>
+                    <td>
                     <br><br>
                         <input type="reset" value="Annuler" class="button" >
                     </td>
@@ -458,7 +461,7 @@ function verif_audio($single)
                     $_POST['genre']
                 
                 );
-                $singleC->modifiersingle($single,$_POST['id']); 
+                $singleC->modifiersingle($single,$_POST['old_id']); 
                 echo "<h1>modification faite<h1>";
                 
             }

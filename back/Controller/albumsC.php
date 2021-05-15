@@ -67,10 +67,10 @@
                         genre = :genre
 
 						
-					WHERE id = :id'
+					WHERE id = :old_id'
 				);
-
-				$query->bindValue(':id',$id);
+                $query->bindValue(':id',$album->get_id());
+				$query->bindValue(':old_id',$id);
 				$query->bindValue(':title',$album->get_title());
 				$query->bindValue(':number_of_songs',$album->get_number_of_songs());
 				$query->bindValue(':release_date',$album->get_release_date());
@@ -83,6 +83,7 @@
 			} catch (PDOException $e) {
 				$e->getMessage();
 			}
+			
 		}
 
 
