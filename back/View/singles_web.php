@@ -1,6 +1,5 @@
 <?PHP
-include '../../config.php';
-require_once '../Controller/singlesC.php'; 
+include '../Controller/singlesC.php'; 
 
 	$singleC=new singlesC();
 	$listesingles=$singleC->affichersingle(); 
@@ -38,7 +37,7 @@ require_once '../Controller/singlesC.php';
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,6 +45,13 @@ require_once '../Controller/singlesC.php';
 
    <!-- CSS for metier pagination -->
    <link rel="stylesheet" href="pagination.css">
+   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.js"></script>
+    <script type="text/javascript" src="js/jspdf.js"></script>
+    <script type="text/javascript" src="js/from_html.js"></script>
+    <script type="text/javascript" src="js/split_text_to_size.js"></script>
+    <script type="text/javascript" src="js/standard_fonts_metrics.js"></script>
+    <script type="text/javascript" src="js/cell.js"></script>
+    <script type="text/javascript" src="js/FileSaver.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
    <!-- Font Awesome -->
@@ -306,6 +312,7 @@ require_once '../Controller/singlesC.php';
     <div class="row">
           <div class="col-12">
           <button class="button" onclick="location.href='ajoutersingle_web.php'">Ajouter un single</button>
+          <button class="button" onclick="printDiv('albums')">Exporter un PDF</button>
         <hr>
             <div class="card">
               <div class="card-header">
@@ -324,8 +331,8 @@ require_once '../Controller/singlesC.php';
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+              <div class="card-body table-responsive p-0" id="albums">
+                <table class="table table-hover text-nowrap" >
                   <thead>
                     <tr>
                       <th>ID single</th>
@@ -483,5 +490,32 @@ require_once '../Controller/singlesC.php';
     });
   });
 </script>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+
+<script type="text/javascript">
+ function printDiv(divName){
+			var printContents = document.getElementById(divName).innerHTML;
+			var originalContents = document.body.innerHTML;
+
+			document.body.innerHTML = printContents;
+
+			window.print();
+
+			document.body.innerHTML = originalContents;
+
+		}
+
+ </script>
+
 </body>
 </html>
