@@ -259,8 +259,9 @@
     <section class="content">
       <div class="container-fluid">
 
-    <div class="container">
-      <a href="post.php" class="btn-get-started scrollto">Publier un article</a>
+    <div class="container">                               
+      
+      <li class="btn-get-started scrollto" ><a href="post.php">Add a new article</a></li>
     </div>
 
     
@@ -323,7 +324,7 @@
 												$text=$row['post'];
 												$text1=substr($text, 0, 200);
 												echo $text1; ?></p>
-												<a href="forum-detail.php?id=<?php echo $row['id']; ?>">Lire Plus ...</a>
+												<a href="forum-detail.php?id=<?php echo $row['id']; ?>">Read more ...</a>
 											</div>
 										</div>
 										<!-- single-blog-2-end -->

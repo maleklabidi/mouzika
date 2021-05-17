@@ -1,3 +1,28 @@
+
+<?php
+$bdd = new PDO('mysql:host=localhost;dbname=projet_web_blog', 'root', '');
+if(isset($_GET['id']) AND !empty($_GET['id'])) {
+   $get_id = htmlspecialchars($_GET['id']);
+   $article = $bdd->prepare('SELECT * FROM post WHERE id = ?');
+   $article->execute(array($get_id)); 
+   if($article->rowCount() == 1) {
+      $article = $article->fetch();
+      $id = $article['id'];
+      $titre = $article['titre'];
+      $contenu = $article['post'];
+      $likes = $bdd->prepare('SELECT id FROM likes WHERE id_article = ?');
+      $likes->execute(array($id));
+      $likes = $likes->rowCount();
+      $dislikes = $bdd->prepare('SELECT id FROM dislikes WHERE id_articlee = ?');
+      $dislikes->execute(array($id));
+      $dislikes = $dislikes->rowCount();
+   } else { 
+      die('Cet article n\'existe pas !');
+   }                                              
+} else {
+   die('Erreur');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +34,7 @@
 <head>
    <meta charset="utf-8">
    <meta http-equiv="x-ua-compatible" content="ie=edge">
-   <title>Musico</title>
+   <title>Mouzika</title>
    <meta name="description" content="">
    <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,7 +54,8 @@
    <link rel="stylesheet" href="../css/animate.css">
    <link rel="stylesheet" href="../css/slicknav.css">
    <link rel="stylesheet" href="../css/style.css">
-   <!-- <link rel="stylesheet" href="../css/responsive.css"> -->
+   <link rel="stylesheet" href="../scss/style.scss">
+   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -127,6 +153,8 @@
 							    			$min=$post->minPost();
 											$comment=$post->recupererCommentaire($_GET['id']);
 											$number_of_rows = $comment->rowCount(); 
+                                           
+
 											/*foreach ($cli as $val1) {
 											$nom=$val1['nom'];
 											}*///pour afficher l'utilisateur 
@@ -138,42 +166,55 @@
 											}
 											foreach ($result as $val) {?>
 
-<div class="blog-2-img">
+                                            
+
+                                          <div class="blog-2-img">
 												 <a href="forum-detail.php?id=<?php echo$val['id']; ?>"><img src="
-                         <?php 
-                            echo "../".$val['image'];
-                         ?>"
-                          alt="man" /> 
-                          </a>
-											</div>             
+                                         <?php 
+                                        echo "../".$val['image'];
+                                         ?>"
+                                         alt="man" /> 
+                                         </a>
+											</div> 
+
 								<h3><a href="#"><?php echo $val['categorie'];?></a></h3>
 								<div class="blog-info">
 									<h3><a href="#"><?php echo $val['titre'];?></a></h3>
-									<p><?php echo $val['post'];?>
-									<br />
-									
-									
+									<p><?php echo $val['post'];?></p>
+
+									<div class="post-info">
+ <!-- if user likes post, style button differently -->
+
+      
+   <a href="action.php?t=1&id=<?= $id ?>"> J'aime</a> (<?= $likes ?>)
+   <br />
+   <a href="action.php?t=2&id=<?= $id ?>">Je n'aime pas</a> (<?= $dislikes ?>) 
+
+   	</div>
+       
 									
 									<div class="user-info">
 										<div class="row">
 											<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 												<div class="cats-tags-wrap mb-3">
-													<i class="fa fa-list-alt"></i>Categorys: <a href="#"><?php echo $val['categorie'];?></a>
+													<i class="fa fa-list-alt"></i>Category: <a href="#"><?php echo $val['categorie'];?></a>
 												</div>
 											</div>
-											<?php } $id=$_GET['id'];?>	
+											<?php } 
+                                            $id=$_GET['id'];?>	
 												
 										</div>
+                                        
 									</div>
+
 									<div class="next-prev-area">
 										<a href="<?php  if($id-1<$min1) {$id=$min1; echo  "forum-detail.php?id=".$id=$id;} else echo "forum-detail.php?id=".$id=$id-1;  ?>" class="next"><i class="fa fa-angle-left"></i>prev post</a>
 										<a href="<?php echo "forum-detail.php?id=".$id=$id+1; if($max1<$id) $id=$max1;?>" class="previews">next post<i class="fa fa-angle-right"></i></a>
 									</div>
 								</div>
+
 								<!-- comments-area-start -->
-								<div class="comments-area mt-40">
-									
-									
+								<div class="comments-area mt-40">								
 									<?php 
 									
 									foreach ($comment as $val2) {
@@ -199,6 +240,7 @@
 										</div>
 									</div>
 									<?php } ?>  
+                                    
 									<!-- single-comments-end -->
 								</div>
 								<!-- comments-area-end -->

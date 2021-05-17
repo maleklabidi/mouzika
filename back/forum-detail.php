@@ -257,10 +257,7 @@
     <!-- /.content-header -->
 
     <section id="hero" class="d-flex align-items-center">
-    <div class="container">
-      <a href="question.php" class="btn-get-started scrollto">Poser une question</a>
-
-    </div>
+   
   </section><!-- End Hero -->
   <section></section>  <section></section>
 			<!-- shop-main-area-start -->
@@ -304,7 +301,7 @@
                           alt="man" /> 
                           </a>
 											</div>     
-								<h3><a href="#"><?php echo $val['categorie'];?></a></h3>
+								<h3><?php echo $val['categorie'];?></h3>
 								<div class="blog-info">
                 
 									<h3><a href="#"><?php echo $val['titre'];?></a></h3>
@@ -325,8 +322,8 @@
 												<div class="user-share">
 													
 													<ul>
-														<li><a href="supprimer-post.php?id=<?php echo $_GET['id']; ?>"><i>Supprimer</i></a></li>
-														<li><a href="modifier-post.php?id=<?php echo $_GET['id']; ?>"><i>Modifier</i></a></li>
+														<li><a href="supprimer-post.php?id=<?php echo $_GET['id']; ?>"><i>delete</i></a></li>
+														<li><a href="modifier-post.php?id=<?php echo $_GET['id']; ?>"><i>modify</i></a></li>
 													</ul>
 												</div>
 											</div>		
@@ -347,10 +344,7 @@
 										?>
 									<!-- single-comments-start -->
 									<div class="single-comments single-comments-2">
-										<div class="comment-img">
-                    <img src="C:/xampp/htdocs/projet_web/front/img/blog/malek_bg.jpg" alt="post" class="img-size-50 mr-3 img-circle">
-											
-										</div>
+										
 										<div class="comment-text">
 											<a href="#"><?php echo $val2['nom']; ?></a>
 											<?php 
@@ -367,7 +361,7 @@
                       <div class="user-share">
 													
                       <ul>
-														<li><a href="supprimer-comment.php?id=<?php echo $val2['id']."&id_post=".$_GET['id']; ?>"><i>Supprimer</i></a></li>
+														<li><a href="supprimer-comment.php?id=<?php echo $val2['id']."&id_post=".$_GET['id']; ?>"><i>delete comment</i></a></li>
 														
 													</ul>
 												</div>
@@ -380,10 +374,10 @@
 								<!-- comments-area-end -->
 								<!-- comment-respond-area-start -->
 								<div class="comment-respond-area mb-3">
-									<h3>Entrez Votre Commentaire</h3>
+									<h3>write your comment</h3>
 									<div class="single-form">
 										<form action="ajouter-commentaire.php" method="POST">
-											<textarea name="comment" id="comment" cols="30" rows="10" placeholder="Entrez votre commentaire *"></textarea>
+											<textarea name="comment" id="comment" cols="30" rows="10" placeholder="write your comment *"></textarea>
 											<input name="id_client"  type="hidden" value="01" />
 											<input name="id_post"  type="hidden" value="<?php echo $_GET['id']; ?>" />
 											<input name="nom"  type="hidden" value="admin" />

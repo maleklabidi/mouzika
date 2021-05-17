@@ -889,9 +889,7 @@
 											</div>
 
 									</div>
-								
-
-									
+ 
 									<div class="col-lg-12 ">
 											<div class="checkout-form-list">
 										

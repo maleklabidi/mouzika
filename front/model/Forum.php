@@ -1,16 +1,18 @@
 <?php
 include_once "../config.php";
 class Forum
-{
+{  
    private $titre,$categorie,$post,$image,$id_patient;
 
-function __construct($titre,$categorie,$post,$image,$id_patient)
+function __construct($titre,$categorie,$post,$image,$id_patient) 
  {
         $this->titre=$titre;
         $this->categorie=$categorie;
         $this->post=$post;
         $this->image=$image;
-        $this->id_patient=$id_patient;      
+        $this->id_patient=$id_patient; 
+  
+
     }
  public function get_titre() 
     {
@@ -30,7 +32,7 @@ function __construct($titre,$categorie,$post,$image,$id_patient)
     }
     public function get_id_patient() 
     {
-        return $this->id_patient;
+        return $this->id_patient;   
     }   
 
 }

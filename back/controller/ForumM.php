@@ -142,13 +142,14 @@ class ForumManage
        
         $db=config::getConnexion();
         
-        $req="UPDATE `post` SET `titre`=:titre,`categorie`=:categorie,`post`=:post,`date_post`=now() WHERE id=$id_post";
+        $req="UPDATE `post` SET `titre`=:titre,`categorie`=:categorie, `image`=:image ,`post`=:post,`date_post`=now() WHERE id=$id_post";
 
 
          $sql=$db->prepare($req);
          $sql->bindValue(':titre',$post->get_titre());
         $sql->bindValue(':categorie',$post->get_categorie());
         $sql->bindValue(':post',$post->get_post());
+        $sql->bindValue(':image',$post->get_image());
   
       if($sql->execute())
                  echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum-detail.php?id=".$id_post."\">"; 

@@ -4,17 +4,18 @@ $post=new ForumManage();
 $posts=$post->afficherPost();
 
 if ((isset($_POST["recherche"]))&& (isset($_POST["colonne"]))){
-    if (!empty(isset($_POST["recherche"]))){
+    if (!empty(isset($_POST["recherche"]))){ 
      $n=$_POST["colonne"];
       $posts=$post->rechercher($_POST["recherche"],$n);
     } 
      }
-?>
+?> 
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
 <head>
-    <meta charset="utf-8"> 
+    <meta charset="utf-8">  
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Mouzika</title>
     <meta name="description" content="">
@@ -177,7 +178,7 @@ if ((isset($_POST["recherche"]))&& (isset($_POST["colonne"]))){
 												$text=$row['post'];
 												$text1=substr($text, 0, 200);
 												echo $text1; ?></p>
-												<a href="forum-detail.php?id=<?php echo $row['id']; ?>">Lire Plus ...</a>
+												<a href="forum-detail.php?id=<?php echo $row['id']; ?>">Read more ...</a>
 											</div>
 										</div>
 										<!-- single-blog-2-end -->
@@ -194,13 +195,13 @@ if ((isset($_POST["recherche"]))&& (isset($_POST["colonne"]))){
 								<!-- blog-right-start -->
                                 <form method="POST" action="">
         <select name="colonne" class=" flex-c-m text-center size-905 bor4 pointer hov-btn3"  style="width: 180px;">
-        <option value="all" >Tous</option>
+        <option value="all" >all</option>
           <option value="titre">titre </option>
           <option value="categorie">Categorie </option>
           <option value="date_post">date_post</option>
         </select>
-          <input type="text" name="recherche" placeholder="Rechercher" class=" m-b-10 flex-c-m text-center size-105 bor4 pointer hov-btn3  m-tb-4 "> 
-          <input type="submit" name="chercher" value="Valider" class="m-t-0 flex-c-m text-center size-105 bor4 pointer hov-btn3  m-tb-4" style="width: 180px;">
+          <input type="text" name="recherche" placeholder="search" class=" m-b-10 flex-c-m text-center size-105 bor4 pointer hov-btn3  m-tb-4 "> 
+          <input type="submit" name="chercher" value="Validate" class="m-t-0 flex-c-m text-center size-105 bor4 pointer hov-btn3  m-tb-4" style="width: 180px;">
 
          
          </form>

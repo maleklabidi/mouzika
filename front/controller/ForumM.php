@@ -31,11 +31,9 @@ public function ajouterPost($post)
     {
         $db=config::getConnexion();
         
-        $req="UPDATE `post` SET `likes`= likes + 1 WHERE id=$id_post";
-
+        $req="UPDATE `post` SET `like_count`= like_count + 1 WHERE id=$id_post";
 
          $sql=$db->prepare($req);
-      
   
       if($sql->execute())
                  echo "<meta http-equiv=\"refresh\" content=\"0;URL=forum.php\">"; 
@@ -87,7 +85,7 @@ public function ajouterPost($post)
         $result ="SELECT * FROM post";
         $sql=$db->query($result);
         return $sql;
-    }
+    } 
     public function maxPost()
     {
         $db=config::getConnexion();
@@ -180,7 +178,6 @@ public function modifierPost($post,$id_post)
    $db = config::getConnexion();
    try { $posts=$db->query($sql); 
     
-
        return $posts;
    }
    catch (PDOException $e) {
