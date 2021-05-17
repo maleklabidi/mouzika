@@ -328,13 +328,19 @@
           <li class="nav-item">
             <a href="showusers.php" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">Users</p>
+              <p class="text">Show Users</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="add_product.php" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
-              <p>Shopping Cart</p>
+              <p>Add Products</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="showproduct.php" class="nav-link">
+              <i class="nav-icon far fa-circle text-warning"></i>
+              <p>Show Products</p>
             </a>
           </li>
          

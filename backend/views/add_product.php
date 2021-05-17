@@ -90,7 +90,7 @@ include "header.php";
                                 $dst="../product_image/".$v3.$fnm;
                                 $dst1="product_image/".$v3.$fnm;
                                 move_uploaded_file($_FILES["pimage"]["tmp_name"],$dst);
-                               $query1=mysqli_query($link,"INSERT INTO panier VALUES(NULL,'$_POST[pnm]',$_POST[ppricelow],$_POST[pqty],'$dst1','$_POST[pcategory]','$_POST[pdesc]',$_POST[ppricehigh],'$_POST[pbrand]')");
+                               $query1=mysqli_query($link,"INSERT INTO product VALUES(NULL,'$_POST[pnm]',$_POST[ppricelow],$_POST[pqty],'$dst1','$_POST[pcategory]','$_POST[pdesc]',$_POST[ppricehigh],'$_POST[pbrand]')");
                               
                                 if($query1)
                                 {echo"success";}

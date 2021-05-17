@@ -35,7 +35,7 @@
 			}	
 		}
 
-		function supprimerUtilisateur($id){
+		function deleteUtilisateur($id){
 			$sql="DELETE FROM users WHERE id= :id";
 			$db = config::getConnexion();
 			$req=$db->prepare($sql);
@@ -47,7 +47,7 @@
 				die('Erreur: '.$e->getMessage()); 
 			}
 		}
-		function modifierUtilisateur($users, $id){
+		function updateUtilisateur($users, $id){
 			try {
 				$db = config::getConnexion();
 				$query = $db->prepare(

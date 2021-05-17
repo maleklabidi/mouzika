@@ -27,8 +27,7 @@ include_once "header.php";
 				<th>Id</th>
 				<th>Username</th>
 				<th>Email</th>
-				<th>Delete</th>
-				<th>Update</th>
+				
 			</tr>
             </thead>
             <tbody>
@@ -39,15 +38,18 @@ include_once "header.php";
 					<td><?PHP echo $user['id']; ?></td>
 					<td><?PHP echo $user['username']; ?></td>
 					<td><?PHP echo $user['email']; ?></td>
+					<tr>
 					<td>
-						<form method="POST" action="supprimerUtilisateur.php">
-						<input class="filsa" type="submit" name="supprimer" value="Delete">
+						<form method="POST" action="deleteusers.php">
+						<input class="filsa" type="submit" name="delete" value="Delete">
 						<input type="hidden" value=<?PHP echo $user['id']; ?> name="id">
 						</form>
 					</td>
+					
 					<td>
 						<a href="updateusers.php?id=<?PHP echo $user['id']; ?>"> Update </a>
 					</td>
+					</tr>
 				</tr>
                 </tbody>
 			<?PHP

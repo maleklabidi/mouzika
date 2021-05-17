@@ -12,26 +12,26 @@ include_once "../login/session.php";
 	if (
 		isset($_POST["username"]) && 
        
-        isset($_POST["email"]) && 
+        isset($_POST["email"]) 
         
-        isset($_POST["password"])
+        
 	){
 		if (
             !empty($_POST["username"]) && 
             
-            !empty($_POST["email"]) && 
+            !empty($_POST["email"]) 
            
-            !empty($_POST["password"])
+           
         ) {
             $user = new Utilisateur(
                 $_POST['username'],
                
                 $_POST['email'],
                 
-                $_POST['password']
+                
 			);
 			
-            $utilisateurC->modifierUtilisateur($user, $_GET['id']);
+            $utilisateurC->updateUtilisateur($user, $_GET['id']);
             header('refresh:5;url=showusers.php');
         }
         else
@@ -52,7 +52,7 @@ include_once "header.php";
                 color:black;
             }
         </style>
-		<title>Modifier Utilisateur</title>
+		<title>update Utilisateur</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
@@ -102,15 +102,7 @@ include_once "header.php";
                     </td>
                 </tr>
                
-                <tr>
-                    <td>
-                        <label for="password">Password:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="password" name="password" id="password" value = "<?php echo $user['password']; ?>">
-                    </td>
-                </tr>
+               
                 
                 <tr>
                     <td></td>
