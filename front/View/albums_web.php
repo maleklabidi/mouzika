@@ -6,7 +6,7 @@ include '../Controller/albumsC.php';
 
 ?>
 <!doctype html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="fr">
 
 <head>
     <meta charset="utf-8">
@@ -19,6 +19,7 @@ include '../Controller/albumsC.php';
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
 
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- CSS here -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -382,6 +383,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!--/ footer end  -->
 
     <!-- link that opens popup -->
+    <div id="google_translate_element"></div>
+
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
+}
+</script>
 
     <!-- JS here -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 

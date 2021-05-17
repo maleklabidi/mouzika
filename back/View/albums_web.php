@@ -40,7 +40,7 @@ include '../Controller/albumsC.php';
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -98,10 +98,10 @@ include '../Controller/albumsC.php';
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-            <input type="text" name="search" id="search" class="form-control float-right" placeholder="Search" onkeyup="search_data()">
+            <input type="text" name="search" class="form-control float-right" placeholder="Search">
 
               <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
+                <button class="btn btn-navbar" type="submit" onclick="search_data()">
                   <i class="fas fa-search"></i>
                 </button>
                 <button class="btn btn-navbar" type="button" data-widget="navbar-search">
@@ -316,10 +316,11 @@ include '../Controller/albumsC.php';
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="search" class="form-control float-right" placeholder="Search" onkeyup="search_data()">
+
+                  <input type="text" name="search" id="search_area" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
+                      <button type="submit" class="btn btn-default" onclick="search_data()">
                         <i class="fas fa-search"></i>
                       </button>
                     </div>
@@ -328,7 +329,7 @@ include '../Controller/albumsC.php';
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table name="table_search" class="table table-hover text-nowrap">
+                <table id="album_table" name="table_search" class="table table-hover text-nowrap">
                   <thead>
                     <tr>
                       <th>ID album</th>
@@ -481,25 +482,36 @@ for($j=0; $j < $paginations; $j++) {
     });
   });
 </script>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr'}, 'google_translate_element');
+}
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
-<script>
+    <script>
           function search_data()
           {
-            var search=jQuery('#search').val();
-            if(search!=''){
-              jQuery.ajax({
-              type: 'POST', 
-              url:'getData.php',
-              data:'search='+search, 
-              success:function(data){
-              jQuery('#table_search').html(data);
-               
-              }
- 
-              })
-            }
- 
+            var search=$("#search_area").val();       
+            $.ajax({
+                url: 'getData.php',
+                type: "post",
+                data: {"search": search},
+
+                beforeSend: function () {},
+                complete: function () {},
+                success: function (data) {
+                    $('#album_table').html(data);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(errorThrown)
+                }
+            });
           }
  
-      </script>
+  </script>
