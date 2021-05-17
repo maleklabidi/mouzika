@@ -1,8 +1,42 @@
 <?PHP
 include '../Controller/albumsC.php'; 
 
+
 	$albumC=new albumsC();
 	$listealbum=$albumC->afficheralbum(); 
+  $db = config::getConnexion();
+ 
+  
+  $start = 0; 
+  $per_page=4;  // kadeh men commission par page todhher
+  $page_counter = 0; 
+  $next = $page_counter+1; 
+  $previous = $page_counter -1; 
+  
+  if (isset($_GET['start']))
+  {
+      $start = $_GET['start']; 
+      $page_counter=$_GET['start']; 
+      $start= $start * $per_page; 
+      $next = $page_counter +1; 
+      $previous = $page_counter -1 ; 
+  
+  }
+ 
+  $sql = "SELECT * FROM albums limit $start, $per_page";
+  $query=$db->prepare($sql); 
+  $query->execute();  
+  
+  if($query->rowCount() > 0){ //ken table  moch fergha 
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
+  }
+  
+ 
+ 
+  $count=$listealbum->rowCount(); 
+   //arrondissement
+   $paginations=ceil($count/$per_page); // $pagination heya kadeh men link taa pagination bech ikoun fama 
+   //ceil fonction taa arrondissement
 
 ?>
 <!DOCTYPE html>
@@ -12,6 +46,10 @@ include '../Controller/albumsC.php';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mouzika | Dashboard </title>
 
+<!-- CSS for metier pagination -->
+   <link rel="stylesheet" href="pagination.css">
+   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
    <!-- Font Awesome -->
@@ -60,7 +98,8 @@ include '../Controller/albumsC.php';
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <input type="text" name="search" id="search" class="form-control float-right" placeholder="Search" onkeyup="search_data()">
+
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -196,16 +235,7 @@ include '../Controller/albumsC.php';
         </div>
       </div>
  <!-- SidebarSearch Form -->
- <div class="form-inline">
-  <div class="input-group" data-widget="sidebar-search">
-    <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-    <div class="input-group-append">
-      <button class="btn btn-sidebar">
-        <i class="fas fa-search fa-fw"></i>
-      </button>
-    </div>
-  </div>
-</div>
+ 
 <!-- 
   ***********************************************************************************************************************************
   ***********************************************************************************************************************************
@@ -272,6 +302,13 @@ include '../Controller/albumsC.php';
     <div class="row">
           <div class="col-12">
           <button class="button" onclick="location.href='ajouteralbum_web.php'">Ajouter un album</button>
+          <form>
+          <input type="radio" id="asc" name="asc" value="asc">
+            <label for="asc">Ordre croissant</label><br>
+            <input type="radio" id="dsc" name="dsc" value="dsc">
+            <label for="dsc">Ordre décroissant</label><br>
+            <input type="submit" value="Trier la liste" class="button" onclick="trier()"><br>
+          </form>
         <hr>
             <div class="card">
               <div class="card-header">
@@ -279,7 +316,7 @@ include '../Controller/albumsC.php';
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                    <input type="text" name="search" class="form-control float-right" placeholder="Search" onkeyup="search_data()">
 
                     <div class="input-group-append">
                       <button type="submit" class="btn btn-default">
@@ -291,7 +328,7 @@ include '../Controller/albumsC.php';
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table name="table_search" class="table table-hover text-nowrap">
                   <thead>
                     <tr>
                       <th>ID album</th>
@@ -306,7 +343,7 @@ include '../Controller/albumsC.php';
                   </thead>
                   <tbody>
                   <?PHP
-				foreach($listealbum as $album){
+				foreach($result as $album){
 			?>
 				<tr>
 					 <td><?PHP echo $album['id']; ?></td>
@@ -354,6 +391,41 @@ include '../Controller/albumsC.php';
                 </table>
               </div>
               <!-- /.card-body -->
+              <center>
+ 
+<ul class="pagination" style="float: center;">
+ 
+ 
+<?php
+ 
+ 
+if( $page_counter == 0){
+echo "<li><a href=?start='0' class='active'>0</a></li>";
+for($j=1; $j < $paginations; $j++) { 
+    
+  echo "<li><a href=?start=$j>".$j."</a></li>";
+}
+}
+else{
+echo "<li><a href=?start=$previous>Previous</a></li>"; 
+ 
+ 
+for($j=0; $j < $paginations; $j++) {
+ 
+ if($j == $page_counter) {
+    echo "<li><a href=?start=$j class='active'>".$j."</a></li>";
+ }else{
+    echo "<li><a href=?start=$j>".$j."</a></li>";
+ } 
+ 
+    }
+    if($j != $page_counter+1)
+      echo "<li><a href=?start=$next>Next</a></li>"; 
+    } 
+  ?>
+  </ul>
+  </center>
+
             </div>
             <!-- /.card -->
           </div>
@@ -411,3 +483,23 @@ include '../Controller/albumsC.php';
 </script>
 </body>
 </html>
+<script>
+          function search_data()
+          {
+            var search=jQuery('#search').val();
+            if(search!=''){
+              jQuery.ajax({
+              type: 'POST', 
+              url:'getData.php',
+              data:'search='+search, 
+              success:function(data){
+              jQuery('#table_search').html(data);
+               
+              }
+ 
+              })
+            }
+ 
+          }
+ 
+      </script>

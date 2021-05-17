@@ -1,8 +1,40 @@
 <?PHP
-include '../Controller/singlesC.php'; 
+include '../../config.php';
+require_once '../Controller/singlesC.php'; 
 
 	$singleC=new singlesC();
 	$listesingles=$singleC->affichersingle(); 
+
+  $db = config::getConnexion();
+ 
+  
+  $start = 0; 
+  $per_page=2;  // 9adeh men commission par page todhher
+  $page_counter = 0; 
+  $next = $page_counter+1; 
+  $previous = $page_counter -1; 
+  
+  if (isset($_GET['start']))
+  {
+      $start = $_GET['start']; 
+      $page_counter=$_GET['start']; 
+      $start= $start * $per_page; 
+      $next = $page_counter +1; 
+      $previous = $page_counter -1 ; 
+  
+  }
+ 
+  $sql = "SELECT * FROM singles limit $start, $per_page";
+  $query=$db->prepare($sql); 
+  $query->execute();  
+  
+  if($query->rowCount() > 0){ //ken table moch fergha 
+      $result = $query->fetchAll(PDO::FETCH_ASSOC);
+  }
+  $count=$listesingles->rowCount(); 
+  //arrondissement
+  $paginations=ceil($count/$per_page); // $pagination: kadeh men link taa pagination bech ikoun mawjoud 
+  //ceil fonction taa arrondissement
 
 ?>
 <!DOCTYPE html>
@@ -12,6 +44,8 @@ include '../Controller/singlesC.php';
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mouzika | Dashboard </title>
 
+   <!-- CSS for metier pagination -->
+   <link rel="stylesheet" href="pagination.css">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
    <!-- Font Awesome -->
@@ -306,7 +340,7 @@ include '../Controller/singlesC.php';
                   </thead>
                   <tbody>
                   <?PHP
-				foreach($listesingles as $single){
+				foreach($result as $single){
 			?>
 				<tr>
                     <!--ORDER IN DATABASE COUNTS BE CAAAAREFUL -->
@@ -356,9 +390,45 @@ include '../Controller/singlesC.php';
 			?>
                   </tbody>
                 </table>
+                
               </div>
               <!-- /.card-body -->
+  
+  <center>
+ 
+ <ul class="pagination" style="float: center;">
+  
+  
+ <?php
+  
+  
+ if( $page_counter == 0){
+ echo "<li><a href=?start='0' class='active'>0</a></li>";
+ for($j=1; $j < $paginations; $j++) { 
+     
+   echo "<li><a href=?start=$j>".$j."</a></li>";
+ }
+ }
+ else{
+ echo "<li><a href=?start=$previous>Previous</a></li>"; 
+  
+  
+ for($j=0; $j < $paginations; $j++) {
+    if($j == $page_counter) {
+        echo "<li><a href=?start=$j class='active'>".$j."</a></li>";
+     }else{
+        echo "<li><a href=?start=$j>".$j."</a></li>";
+     } 
+     
+        }
+        if($j != $page_counter+1)
+          echo "<li><a href=?start=$next>Next</a></li>"; 
+        } 
+      ?>
+      </ul>
+      </center>
             </div>
+            
             <!-- /.card -->
           </div>
         </div>
