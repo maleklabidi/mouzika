@@ -26,13 +26,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="http://localhost/mouzika_integ/back/view/Dhia/affichereven.php" class="nav-link">
+                    <a href="http://localhost:9090/mouzika_integ/back/view/Dhia/affichereven.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Afficher Evenement</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="http://localhost/mouzika_integ/back/view/Dhia/ajoutereven.php" class="nav-link">
+                    <a href="http://localhost:9090/mouzika_integ/back/view/Dhia/ajoutereven.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ajouter Evenement</p>
                     </a>
@@ -44,13 +44,13 @@
               <!-- Malek-->
 
               <li class="nav-item">
-            <a href="http://localhost/mouzika_integ/back/view/Malek/singles_web.php" class="nav-link">
+            <a href="http://localhost:9090/mouzika_integ/back/view/Malek/singles_web.php" class="nav-link">
               <i class="nav-icon far fa-circle text-danger"></i>
               <p class="text">Singles</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="http://localhost/mouzika_integ/back/view/Malek/albums_web.php" class="nav-link">
+            <a href="http://localhost:9090/mouzika_integ/back/view/Malek/albums_web.php" class="nav-link">
               <i class="nav-icon far fa-circle text-warning"></i>
               <p>Albums</p>
             </a>
@@ -78,7 +78,7 @@
           
            <!-- Wissal-->
               <li class="nav-item">
-                <a href="./forum.php" class="nav-link">
+                <a href="http://localhost:9090/mouzika_integ/back/view/views/forum.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>BLOG</p>
                 </a>
