@@ -56,7 +56,34 @@
             </a>
           </li>
 
-
+          <!-- Mahmoud-->
+          <li class="nav-item">
+            <a href="addadmin.php" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Add admins</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="showadmin.php" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Show Admins</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="showusers.php" class="nav-link">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Show Users</p>
+            </a>
+          </li>
+          
+           <!-- Wissal-->
+              <li class="nav-item">
+                <a href="./forum.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>BLOG</p>
+                </a>
+              </li>
+         
 
 
       </nav>
