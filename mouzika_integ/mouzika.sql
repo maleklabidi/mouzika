@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : 127.0.0.1
--- Généré le : mar. 18 mai 2021 à 17:48
--- Version du serveur :  10.4.17-MariaDB
--- Version de PHP : 7.4.15
+-- Hôte : 127.0.0.1:3306
+-- Généré le : mar. 18 mai 2021 à 23:34
+-- Version du serveur :  5.7.31
+-- Version de PHP : 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,19 +24,45 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(2, 'root', '$2y$10$hDXhVquMpUIHgoF8u.qvI.RgHZIx8fGWkH/MCCkixqmaeUMGXcqxi'),
+(3, 'jacksss', '123456'),
+(4, 'admin', '$2y$10$8E8cJWU7lEmAr0k.FabEZumKST8ZxePngkvVFeKck34ZGxBgBpnle');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `albums`
 --
 
-CREATE TABLE `albums` (
-  `id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `albums`;
+CREATE TABLE IF NOT EXISTS `albums` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `cover_image` varchar(255) NOT NULL,
   `number_of_songs` int(255) NOT NULL,
   `release_date` date NOT NULL,
   `genre` varchar(255) NOT NULL,
   `artist` varchar(255) NOT NULL,
-  `length` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `length` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=77778 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `albums`
@@ -57,14 +83,19 @@ INSERT INTO `albums` (`id`, `title`, `cover_image`, `number_of_songs`, `release_
 -- Structure de la table `commentaire`
 --
 
-CREATE TABLE `commentaire` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `commentaire`;
+CREATE TABLE IF NOT EXISTS `commentaire` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) NOT NULL,
   `comment` longtext NOT NULL,
   `date_com` datetime NOT NULL,
   `id_patient` int(11) NOT NULL,
-  `id_post` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_post` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_post` (`id_post`),
+  KEY `id_patient` (`id_patient`),
+  KEY `nom` (`nom`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `commentaire`
@@ -94,11 +125,14 @@ INSERT INTO `commentaire` (`id`, `nom`, `comment`, `date_com`, `id_patient`, `id
 -- Structure de la table `dislikes`
 --
 
-CREATE TABLE `dislikes` (
-  `id` int(100) NOT NULL,
+DROP TABLE IF EXISTS `dislikes`;
+CREATE TABLE IF NOT EXISTS `dislikes` (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
   `id_article` int(11) NOT NULL,
-  `id_membre` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_membre` int(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_articlee` (`id_article`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -106,15 +140,17 @@ CREATE TABLE `dislikes` (
 -- Structure de la table `evenement`
 --
 
-CREATE TABLE `evenement` (
-  `id_even` int(11) NOT NULL,
+DROP TABLE IF EXISTS `evenement`;
+CREATE TABLE IF NOT EXISTS `evenement` (
+  `id_even` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
   `emplacement` varchar(100) NOT NULL,
   `capacite` int(11) NOT NULL,
   `date` date NOT NULL,
   `artiste` varchar(100) NOT NULL,
-  `image` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `image` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_even`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `evenement`
@@ -132,11 +168,14 @@ INSERT INTO `evenement` (`id_even`, `nom`, `emplacement`, `capacite`, `date`, `a
 -- Structure de la table `likes`
 --
 
-CREATE TABLE `likes` (
-  `id` int(100) NOT NULL,
+DROP TABLE IF EXISTS `likes`;
+CREATE TABLE IF NOT EXISTS `likes` (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
   `id_article` int(11) NOT NULL,
-  `id_membre` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_membre` int(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_article` (`id_article`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -144,14 +183,16 @@ CREATE TABLE `likes` (
 -- Structure de la table `post`
 --
 
-CREATE TABLE `post` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `post`;
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `titre` varchar(100) DEFAULT NULL,
   `categorie` varchar(100) NOT NULL,
   `post` longtext NOT NULL,
   `image` varchar(100) NOT NULL,
-  `date_post` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `date_post` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `post`
@@ -168,8 +209,9 @@ INSERT INTO `post` (`id`, `titre`, `categorie`, `post`, `image`, `date_post`) VA
 -- Structure de la table `product`
 --
 
-CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(150) NOT NULL,
   `product_pricelow` int(5) NOT NULL,
   `product_qty` int(5) NOT NULL,
@@ -177,8 +219,32 @@ CREATE TABLE `product` (
   `product_category` varchar(50) NOT NULL,
   `product_description` varchar(500) NOT NULL,
   `product_pricehigh` int(11) NOT NULL,
-  `product_brand` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `product_brand` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `producttb`
+--
+
+DROP TABLE IF EXISTS `producttb`;
+CREATE TABLE IF NOT EXISTS `producttb` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(25) NOT NULL,
+  `product_price` float DEFAULT NULL,
+  `product_image` varchar(100) DEFAULT NULL,
+  `cart` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `producttb`
+--
+
+INSERT INTO `producttb` (`id`, `product_name`, `product_price`, `product_image`, `cart`) VALUES
+(1, 'dress', 15, 'product_image/99c09244315b7f46e2a3b1ef3150a94bpistache.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -186,16 +252,19 @@ CREATE TABLE `product` (
 -- Structure de la table `promotion`
 --
 
-CREATE TABLE `promotion` (
-  `id_promo` int(10) NOT NULL,
+DROP TABLE IF EXISTS `promotion`;
+CREATE TABLE IF NOT EXISTS `promotion` (
+  `id_promo` int(10) NOT NULL AUTO_INCREMENT,
   `id_artiste` varchar(10) NOT NULL,
   `id_even` int(11) DEFAULT NULL,
   `nom` varchar(100) NOT NULL,
   `reduction` varchar(10) NOT NULL,
   `duree` date NOT NULL,
   `description` varchar(255) NOT NULL,
-  `image` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `image` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_promo`),
+  KEY `FK_event` (`id_even`)
+) ENGINE=InnoDB AUTO_INCREMENT=1088 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `promotion`
@@ -212,16 +281,18 @@ INSERT INTO `promotion` (`id_promo`, `id_artiste`, `id_even`, `nom`, `reduction`
 -- Structure de la table `singles`
 --
 
-CREATE TABLE `singles` (
-  `id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `singles`;
+CREATE TABLE IF NOT EXISTS `singles` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
   `artist` varchar(255) NOT NULL,
   `single_name` varchar(255) NOT NULL,
   `artist_image` varchar(255) NOT NULL,
   `audio` varchar(255) NOT NULL,
   `release_date` date NOT NULL,
   `rate` int(255) NOT NULL,
-  `genre` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `genre` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=666666667 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `singles`
@@ -242,156 +313,23 @@ INSERT INTO `singles` (`id`, `artist`, `single_name`, `artist_image`, `audio`, `
 -- Structure de la table `users`
 --
 
-CREATE TABLE `users` (
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(55) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `id` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`username`, `password`, `id`, `email`) VALUES
-('lili', '$2y$10$YSZ2gD8etcQZGMgwRfYmreh5CuRAm9dVKBozVKH76rxaHV13gjIPy', 3, 'efefeddsdddddddddddddddddddd@gmail.com'),
-('kila', '$2y$10$m9FJ92XgUwkTfojQaO5k4uBT7LOLM65ypS6BwFe1hHJpgRFGm5fe6', 6, 'kila@gmail.com'),
-('melo', '$2y$10$mZSg6sfmpPvKhzQ9Ez3kIurvLnurHW6eohm5NzGphml8.g6/HPQeS', 7, 'melo@gmail.com');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `albums`
---
-ALTER TABLE `albums`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `commentaire`
---
-ALTER TABLE `commentaire`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_post` (`id_post`),
-  ADD KEY `id_patient` (`id_patient`);
-
---
--- Index pour la table `dislikes`
---
-ALTER TABLE `dislikes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_articlee` (`id_article`);
-
---
--- Index pour la table `evenement`
---
-ALTER TABLE `evenement`
-  ADD PRIMARY KEY (`id_even`);
-
---
--- Index pour la table `likes`
---
-ALTER TABLE `likes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_article` (`id_article`);
-
---
--- Index pour la table `post`
---
-ALTER TABLE `post`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `promotion`
---
-ALTER TABLE `promotion`
-  ADD PRIMARY KEY (`id_promo`),
-  ADD KEY `FK_event` (`id_even`);
-
---
--- Index pour la table `singles`
---
-ALTER TABLE `singles`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `albums`
---
-ALTER TABLE `albums`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77778;
-
---
--- AUTO_INCREMENT pour la table `commentaire`
---
-ALTER TABLE `commentaire`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
-
---
--- AUTO_INCREMENT pour la table `dislikes`
---
-ALTER TABLE `dislikes`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT pour la table `evenement`
---
-ALTER TABLE `evenement`
-  MODIFY `id_even` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT pour la table `likes`
---
-ALTER TABLE `likes`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT pour la table `post`
---
-ALTER TABLE `post`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
-
---
--- AUTO_INCREMENT pour la table `product`
---
-ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT pour la table `promotion`
---
-ALTER TABLE `promotion`
-  MODIFY `id_promo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1088;
-
---
--- AUTO_INCREMENT pour la table `singles`
---
-ALTER TABLE `singles`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=666666667;
-
---
--- AUTO_INCREMENT pour la table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+('admin', '$2y$10$zyW4tzKWNPv1KS8r0JfBD.CZu.axMkignc35XX9twCPCiU6trLX82', 8, 'admin@gmail.com');
 
 --
 -- Contraintes pour les tables déchargées
