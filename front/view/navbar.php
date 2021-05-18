@@ -1,6 +1,4 @@
 
-<?php
-?>
 <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid">
@@ -9,7 +7,7 @@
                             <div class="col-xl-3 col-lg-2">
                                 <div class="logo">
                                     <a href="index.php">
-                                        <img src="img/logo.png" alt="">
+                                        <img src="Malek/logo_mouzika.jpg" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -19,7 +17,12 @@
                                         <ul id="navigation">
                                             <li><a class="active" href="index.php">home</a></li>
                                             <li><a href="about.html">About</a></li>
-                                            <li><a href="track.html">tracks</a></li>
+                                            <li><a href="#">Discographie<i class="ti-angle-down"></i></a>
+                                                <ul class="submenu">
+                                                    <li><a href="http://localhost/mouzika_integ/front/view/Malek/singles_web.php">Singles</a></li>
+                                                    <li><a href="http://localhost/mouzika_integ/front/view/Malek/albums_web.php">Albums</a></li>
+                                                </ul>
+                                            </li>
                                             <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
                                                     <li><a href="blog.html">blog</a></li>
@@ -28,8 +31,8 @@
                                             </li>
                                             <li><a href="#">Nouveautes <i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
-                                                     <li><a href="promo.php">Promotions</a></li>
-                                                     <li><a href="even.php">Evenements</a></li>
+                                                     <li><a href="http://localhost/mouzika_integ/front/view/Dhia/promo.php">Promotions</a></li>
+                                                     <li><a href="http://localhost/mouzika_integ/front/view/Dhia/even.php">Evenements</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="contact.html">Contact</a></li>
