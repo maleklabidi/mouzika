@@ -33,7 +33,7 @@ include '../../controller/evenementC.php';
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="nav-link">Home</a>
+        <a href="http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -166,12 +166,12 @@ include '../../controller/evenementC.php';
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="brand-link">
+    <a href="http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Mouzika Dashboard</span>
     </a>
 
-    <!-- Sidebar -->
+    <!-- text_dance -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -195,11 +195,14 @@ include '../../controller/evenementC.php';
         </div>
       </div>
 
-         <!-- side-start -->
-         <side>
-     <?php include "../sidebar.php"?>
-    </side>
-    <!-- side-end --> 
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <?php include "../sidebar.php"?>
+         </nav>
+          <!-- /.sidebar-menu -->
+          </div>
+            <!-- /.sidebar -->
+          </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -227,7 +230,7 @@ include '../../controller/evenementC.php';
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
+                <h3 class="card-title">Table De Evenement</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">

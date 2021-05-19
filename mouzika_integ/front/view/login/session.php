@@ -3,11 +3,11 @@
 session_start();
  
 // Check if the user is logged in
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== false){
-    
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    $_SESSION["username"]="user";
     ?>
- <h1 style="color:white">Welcome User</h2>
- <a href="login/login.php"><h2 style="color:white" align="right"> Login</h2></a>
+ <h2 style="color:white">Welcome <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></21>
+ <a href="http://localhost/mouzika_integ/front/view/login/login.php"><h2 style="color:white" align="right"> Login</h2></a>
  
 
     <?php
@@ -18,11 +18,11 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== false){
 else{
    
    
+   
+?>
 
-?>
-<?php
-?>
- <h1 style="color:white">Welcome User</h2>
+<h2 style="color:white">Welcome <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></21>
+ <a href="http://localhost/mouzika_integ/front/view/login/logout.php"><h2 style="color:white" align="right"> Logout</h2></a>
  <?php
 }
 

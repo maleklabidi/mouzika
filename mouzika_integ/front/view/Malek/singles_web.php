@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include '../../model/singles.php';
 include '../../controller/singlesC.php'; 
 

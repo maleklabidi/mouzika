@@ -3,7 +3,9 @@
             <div id="sticky-header" class="main-header-area">
             <div style="color:white">
             <?php
-include "login/session.php";
+            
+include_once "login/session.php";
+
 ?>
 </div>
                 <div class="container-fluid">
@@ -29,7 +31,7 @@ include "login/session.php";
                                         <!-- HOME ??-->
                                             <li><a class="active" href="http://localhost/mouzika_integ/front/view/index.php">home</a></li>
                                              <!-- ABOUT ??-->
-                                            <li><a href="about.html">About</a></li>
+                                            <li><a href="#">About</a></li>
                                              <!-- DISCOGRAPHIE MALEK -->
                                             <li><a href="#">Discographie<i class="ti-angle-down"></i></a>
                                                 <ul class="submenu">
@@ -50,8 +52,8 @@ include "login/session.php";
                                                      <li><a href="http://localhost/mouzika_integ/front/view/Dhia/even.php">Evenements</a></li>
                                                 </ul>
                                             </li>
-                                            <!-- CONTACT ?? -->
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <!-- CART ?? -->
+                                            <li><a href="http://localhost/mouzika_integ/front/view/Mahmoud/index.php">Shopping Cart</a></li>
 
                                             <!-- ENNNNNNDDDD NAVBAR-->
                                         </ul>

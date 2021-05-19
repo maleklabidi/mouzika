@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -36,7 +37,7 @@
 
     <!-- header-start -->
     <header>
-    <?php include "navbar.php"?>
+    <?php include_once "navbar.php"?>
 
     </header>
     <!-- header-end -->

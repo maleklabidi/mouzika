@@ -1,5 +1,5 @@
 <?PHP
-	include "../controller/promotionC.php";
+	include "../../controller/promotionC.php";
 
 	$promotionC=new promotionC();
     $listepromo=$promotionC->afficherpromored(); 
@@ -13,7 +13,7 @@
         {
         var s = document.getElementById("selection");
         var valeur = s.options[s.selectedIndex].value;
-            if(valeur == 1)
+            if(valeur == 2)
             {
                 window.location.href = "pzomo.php";
             }
@@ -33,19 +33,20 @@
 	<!-- Place favicon.ico in the root directory -->
 
 	<!-- CSS here -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/themify-icons.css">
-	<link rel="stylesheet" href="css/nice-select.css">
-	<link rel="stylesheet" href="css/flaticon.css">
-	<link rel="stylesheet" href="css/gijgo.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/slicknav.css">
-	<link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="1.css">
-    <link rel="stylesheet" href="css/star.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../css/magnific-popup.css">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/themify-icons.css">
+	<link rel="stylesheet" href="../css/nice-select.css">
+	<link rel="stylesheet" href="../css/flaticon.css">
+	<link rel="stylesheet" href="../css/gijgo.css">
+	<link rel="stylesheet" href="../css/animate.css">
+	<link rel="stylesheet" href="../css/slicknav.css">
+	<link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../1.css">
+    <link rel="stylesheet" href="../css/star.css">
+    <link rel="stylesheet" href="../css/star.css">
 	<!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 
@@ -55,7 +56,7 @@
         <![endif]-->
      <!-- header-start -->
      <header>
-     <?php include "navbar.php"?>
+     <?php include "../navbar.php"?>
     </header>
     <!-- header-end -->
 
@@ -77,20 +78,20 @@
     <div class="single-element-widget mt-30">
 				<div  class="default-select" id="default-select" style="float: right;" >
 				<select name="selection" id="selection" onchange="refresh()">
-				<option>Reducion</option>
-				<option value="1">Nom A-Z</option>
+				<option>Reduction</option>
+				<option value="2">Nom A-Z</option>
 				</select>
 			</div>
 		</div>
     <?PHP
 		foreach($listepromo as $circ){
 	?> 
-
+    
     <table  class="responstable">
 	<tbody> 
 		<tr>
             <?php
-                 echo "<td rowspan='5'>";?> <img src="../../AdminLTE-master/pages/tables/view/<?php echo $circ["image"]; ?>"height = "330" width ="330"> <?php echo "</td>";
+                 echo "<td rowspan='5'>";?> <img src="../../../back/view/Dhia/<?php echo $circ["image"]; ?>"height = "330" width ="330"> <?php echo "</td>";
             ?>
 			<td colspan="3"><?PHP echo $circ['nom']; ?></td>
 		</tr>
@@ -104,7 +105,7 @@
 			<td colspan="3">Reduction de <?PHP echo $circ['reduction']; ?>%</td>
 		</tr>
 		<tr>
-        <td colspan="3"><a href="#" class="genric-btn info circle">Ajouter Au Panier</a>
+			<td colspan="3"><a href="#" class="genric-btn info circle">Ajouter Au Panier</a>
             <fieldset class="rating" style="margin-left: 43.5%;">
     <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
     <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
@@ -225,33 +226,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!--/ footer end  -->
 
 	<!-- JS here -->
-	<script src="js/vendor/modernizr-3.5.0.min.js"></script>
-	<script src="js/vendor/jquery-1.12.4.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/isotope.pkgd.min.js"></script>
-	<script src="js/ajax-form.js"></script>
-	<script src="js/waypoints.min.js"></script>
-	<script src="js/jquery.counterup.min.js"></script>
-	<script src="js/imagesloaded.pkgd.min.js"></script>
-	<script src="js/scrollIt.js"></script>
-	<script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/wow.min.js"></script>
-	<script src="js/nice-select.min.js"></script>
-	<script src="js/jquery.slicknav.min.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/plugins.js"></script>
-	<script src="js/gijgo.min.js"></script>
+	<script src="../js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="../js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="../js/popper.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/owl.carousel.min.js"></script>
+	<script src="../js/isotope.pkgd.min.js"></script>
+	<script src="../js/ajax-form.js"></script>
+	<script src="../js/waypoints.min.js"></script>
+	<script src="../js/jquery.counterup.min.js"></script>
+	<script src="../js/imagesloaded.pkgd.min.js"></script>
+	<script src="../js/scrollIt.js"></script>
+	<script src="../js/jquery.scrollUp.min.js"></script>
+	<script src="../js/wow.min.js"></script>
+	<script src="../js/nice-select.min.js"></script>
+	<script src="../js/jquery.slicknav.min.js"></script>
+	<script src="../js/jquery.magnific-popup.min.js"></script>
+	<script src="../js/plugins.js"></script>
+	<script src="../js/gijgo.min.js"></script>
 
 	<!--contact js-->
-	<script src="js/contact.js"></script>
-	<script src="js/jquery.ajaxchimp.min.js"></script>
-	<script src="js/jquery.form.js"></script>
-	<script src="js/jquery.validate.min.js"></script>
-	<script src="js/mail-script.js"></script>
+	<script src="../js/contact.js"></script>
+	<script src="../js/jquery.ajaxchimp.min.js"></script>
+	<script src="../js/jquery.form.js"></script>
+	<script src="../js/jquery.validate.min.js"></script>
+	<script src="../js/mail-script.js"></script>
 
-	<script src="js/main.js"></script>
+	<script src="../js/main.js"></script>
     <script>
         $('#datepicker').datepicker({
             iconsLibrary: 'fontawesome',

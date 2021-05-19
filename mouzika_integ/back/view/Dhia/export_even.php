@@ -1,5 +1,4 @@
 <?PHP
-include_once "../loginadmin/session.php";
 include "../../controller/evenementC.php";
 
   $evenementC=new evenementC();

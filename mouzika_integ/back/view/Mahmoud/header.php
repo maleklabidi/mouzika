@@ -318,12 +318,14 @@
       </div>
 
 
-      <!-- Sidebar Menu -->
-      <?php  include "../sidebar.php"?>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+       <!-- Sidebar Menu -->
+       <nav class="mt-2">
+        <?php include "../sidebar.php"?>
+         </nav>
+          <!-- /.sidebar-menu -->
+          </div>
+            <!-- /.sidebar -->
+          </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

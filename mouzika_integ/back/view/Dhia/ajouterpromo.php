@@ -1,5 +1,4 @@
 <?php
-include_once "../loginadmin/session.php";
 	include_once '../../model/promotion.php';
   include '../../controller/promotionC.php'; 
 
@@ -19,13 +18,12 @@ if(isset($_POST['Confirmer']))
 
 	$promotionC = new promotionC();
 	if (
-		isset($_POST["id_artiste"]) &&
         isset($_POST["nom"]) && 
         isset($_POST["reduction"]) && 
         isset($_POST["duree"]) &&  
         isset($_POST["description"]) 
 	) {
-		if (!empty($_POST["id_artiste"]) && 
+		if (
             !empty($_POST["nom"]) &&
             !empty($_POST["reduction"]) &&
             !empty($_POST["duree"]) &&
@@ -67,7 +65,7 @@ if(isset($_POST['Confirmer']))
   <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- JS CONTROL -->
-  <script defer src="../controll.js"></script>
+  <script defer src="control_promo.js"></script>
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <style>
@@ -87,7 +85,7 @@ if(isset($_POST['Confirmer']))
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="nav-link">Home</a>
+        <a href="http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -220,7 +218,7 @@ if(isset($_POST['Confirmer']))
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="brand-link">
+    <a href="http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Mouzika Dashboard</span>
     </a>
@@ -251,40 +249,13 @@ if(isset($_POST['Confirmer']))
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-         
-               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-table"></i>
-                  <p>
-                   Promotion
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="afficherpromo.php" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>afficher promotion</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="ajouterpromo.php" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>ajouter promo</p>
-                    </a>
-                  </li>
-                 
-                </ul>
-              </li>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
-
+        <?php include "../sidebar.php"?>
+         </nav>
+          <!-- /.sidebar-menu -->
+          </div>
+            <!-- /.sidebar -->
+          </aside>
+    <!-- side-end --> 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -313,7 +284,7 @@ if(isset($_POST['Confirmer']))
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
+                <h3 class="card-title">Ajouter Promotion</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -348,8 +319,22 @@ if(isset($_POST['Confirmer']))
                                     <input type="text" name="id_artiste" id="id_artiste" value="0" />
                                 </div>
                                 <div class="form-input">
-                                    <label for="id_even" class="required">id_even</label>
-                                    <input type="text" name="id_even" id="id_even" value="0"/>
+                                    <label for="id_even" class="form-select">id_even</label>
+                                    <select name="id_even" id="id_even" class="form-control" >
+                                      <?php
+                                        $conn = mysqli_connect("localhost", "root", "", "mouzika");
+                                        $sql = "SELECT id_even FROM evenement";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0){
+                                        while($row = $result-> fetch_assoc()){ 
+                                          echo "<option value=".$row["id_even"].">".$row["id_even"]. "</options>";
+                                        }
+                                      }else{
+                                        echo"No Results";
+                                      }
+                                        
+                                      ?>
+                                    </select>
                                 </div>
                                 <div class="form-input">
                                     <label for="nom" class="required">nom</label>
