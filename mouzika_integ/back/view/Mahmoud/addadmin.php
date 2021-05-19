@@ -1,5 +1,5 @@
 <?php
-include_once "../loginadmin/session.php";
+//include_once "../loginadmin/session.php";
 
 
 ?>

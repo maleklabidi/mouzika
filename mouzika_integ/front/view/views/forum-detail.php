@@ -214,7 +214,7 @@ if (isset($_POST['comment'])){
 											<textarea name="comment" id="comment" cols="30" rows="10" placeholder="Entrez votre commentaire *"></textarea>
 
                                            
-											<input name="id_client"  type="hidden" value="01" />
+											<input name="id_client"  type="hidden" value="<?php echo $_SESSION['id']; ?>" />
 											<input name="id_post"  type="hidden" value="<?php echo $_GET['id']; ?>" />
 											<input name="nom"  type="hidden" value="<?php echo $_SESSION['username']; ?>" />
 

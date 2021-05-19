@@ -359,7 +359,7 @@ include_once "../loginadmin/session.php";
 									<div class="single-form">
 										<form action="ajouter-commentaire.php" method="POST">
 											<textarea name="comment" id="comment" cols="30" rows="10" placeholder="écrire votre commentaire *"></textarea>
-											<input name="id_client"  type="hidden" value="01" />
+											<input name="id_client"  type="hidden" value="<?php echo $_SESSION['id']; ?>" />
 											<input name="id_post"  type="hidden" value="<?php echo $_GET['id']; ?>" />
 											<input name="nom"  type="hidden" value="<?php echo $_SESSION['username']; ?>" />
 

@@ -16,7 +16,7 @@
                with font-awesome or any other icon font library -->
                
          <!-- DHIA-->
-               <li class="nav-item">
+         <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-table"></i>
                   <p>
@@ -26,15 +26,37 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="http://localhost/mouzika_integ/back/view/Dhia/affichereven.php" class="nav-link">
+                  <a href="../Dhia/affichereven.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Afficher Evenement</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="http://localhost/mouzika_integ/back/view/Dhia/ajoutereven.php" class="nav-link">
+                    <a href="ajoutereven.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ajouter Evenement</p>
+                    </a>
+                  </li>
+                 
+                </ul>
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>
+                   Promotion
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="afficherpromo.php" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Afficher Promotion</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="ajouterpromo.php" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Ajouter Promotion</p>
                     </a>
                   </li>
                  

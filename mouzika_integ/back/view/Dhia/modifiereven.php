@@ -1,43 +1,49 @@
 <?php
-include_once "../loginadmin/session.php";
-	include '../../model/evenement.php';
+	include_once '../../model/evenement.php';
 	include '../../controller/evenementC.php'; 
 
 	$evenementC = new evenementC();
 	$error = "";
 
-	if (
-		isset($_POST["nom"]) &&
-        isset($_POST["emplacement"]) && 
-        isset($_POST["capacite"]) && 
-        isset($_POST["date"]) &&  
-        isset($_POST["artiste"]) &&
-        isset($_POST["image"])
-	) {
-        if (
-            !empty($_POST["nom"]) && 
-            !empty($_POST["emplacement"]) &&
-            !empty($_POST["capacite"]) &&
-            !empty($_POST["date"]) &&
-            !empty($_POST["artiste"]) &&
-            !empty($_POST["image"])
-		) {
-			$evenement = new evenement( 
-				$_POST['nom'], 
-                $_POST['emplacement'],
-                $_POST['capacite'],
-                $_POST['capacite'],
-                $_POST['date'],
-                $_POST['artiste'],
-				        $_POST['image'] 
-			);
-            $evenementC->modifierevenement($evenement,$_GET["id_even"]); 
-            //header('Location:afficherevenement.php');
-        }
-        else
-       
-            $error = "Missing information";
-    }
+  if(isset($_POST['Modifier']) && isset($_POST["image"]))
+  {
+    $img = $_FILES['image']['name'];
+    $img_loc = $_FILES['image']['tmp_name'];
+    $img_folder = "display_even/";
+    move_uploaded_file($img_loc,$img_folder.$img);
+
+  }
+
+  $evenementC = new evenementC();
+  $pp = $evenementC->recupererevenement($_GET['id_even']);
+  if(isset($_POST['image']))
+  {
+    $evenement = new evenement(
+          
+              $_POST['nom'], 
+              $_POST['emplacement'],
+              $_POST['capacite'],
+              $_POST['date'],
+              $_POST['artiste'],
+              'display_even/'.$_FILES['image']['name']
+    );
+    $evenementC->modifierevenement($evenement,$_GET["id_even"]); 
+    header('Location:affichereven.php');
+  }
+  elseif (!empty($_POST["emplacement"])) 
+  {
+    $evenement = new evenement(
+          
+              $_POST['nom'], 
+              $_POST['emplacement'],
+              $_POST['capacite'],
+              $_POST['date'],
+              $_POST['artiste'],
+              $pp->image
+    );
+    $evenementC->modifierevenement($evenement,$_GET["id_even"]); 
+    header('Location:affichereven.php');
+  }
 
 
 ?>
@@ -47,7 +53,7 @@ include_once "../loginadmin/session.php";
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mouzika Dashboard | DataTables</title>
+  <title>AdminLTE 3 | DataTables</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -70,7 +76,7 @@ include_once "../loginadmin/session.php";
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="nav-link">Home</a>
+        <a href="../index.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -203,9 +209,9 @@ include_once "../loginadmin/session.php";
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="brand-link">
+    <a href="../index3.html" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Mouzika Dashboard</span>
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
     <!-- Sidebar -->
@@ -319,7 +325,7 @@ include_once "../loginadmin/session.php";
                   <tbody>
                  
 	
-    <button><a href="afficherpromo.php">Retour à la liste</a></button>
+    <button><a href="affichereven.php">Retour à la liste</a></button>
         <hr>
         
         <div id="error">
@@ -331,7 +337,7 @@ include_once "../loginadmin/session.php";
                 $evenement = $evenementC->recupererevenement($_GET['id_even']);
 				
 		?>
-		<form  method="POST" action="">
+		<form  method="POST" action="" enctype="multipart/form-data">
             <table align="center">
                 <tr>
                     <td>
@@ -348,16 +354,6 @@ include_once "../loginadmin/session.php";
                     <td><input type="text" name="emplacement" id="emplacement"  value = "<?php echo $evenement->emplacement; ?>"></td>
                 </tr>
                 
-                <tr>
-                    <td>
-                        <label for="capacite">capacite:
-                        </label>
-                    </td>
-                    <td>
-                        <input type="text" name="capacite" id="capacite"  value = "<?php echo $evenement->capacite; ?>">
-                    </td>
-                </tr>
-                <tr>
                 <tr>
                     <td>
                         <label for="capacite">capacite:
@@ -391,7 +387,7 @@ include_once "../loginadmin/session.php";
                         </label>
                     </td>
                     <td>
-                    <?PHP echo '<img src="data:image/jpeg;base64,'.base64_encode($evenement->image).'" width ="230" height="230" />';?>
+                    <img src="<?php echo $evenement->image; ?>"height = "230" width ="230">
                     <input type="file" name="image" id="image" />
                     </td>
                 </tr>

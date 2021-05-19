@@ -1,5 +1,4 @@
 <?PHP
-include_once "../loginadmin/session.php";
 include '../../controller/promotionC.php'; 
 
 	$promotionC=new promotionC();
@@ -11,7 +10,7 @@ include '../../controller/promotionC.php';
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mouzika Dashboard | jsGrid</title>
+  <title>AdminLTE 3 | jsGrid</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -33,7 +32,7 @@ include '../../controller/promotionC.php';
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="nav-link">Home</a>
+        <a href="../index.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -166,9 +165,9 @@ include '../../controller/promotionC.php';
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../http://localhost/mouzika_integ/back/view/Mahmoud/dashboard.php" class="brand-link">
+    <a href="../index.html" class="brand-link">
       <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Mouzika Dashboard</span>
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
     <!-- Sidebar -->
@@ -197,39 +196,12 @@ include '../../controller/promotionC.php';
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-         
-               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-table"></i>
-                  <p>
-                   Promotion
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="afficherpromo.php" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>afficher promotion</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="ajouterpromo.php" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>ajouter promo</p>
-                    </a>
-                  </li>
-                 
-                </ul>
-              </li>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+        <?php include "../sidebar.php"?>
+         </nav>
+          <!-- /.sidebar-menu -->
+          </div>
+            <!-- /.sidebar -->
+          </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -257,7 +229,7 @@ include '../../controller/promotionC.php';
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
+                <h3 class="card-title">Table De Promotion</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -274,7 +246,7 @@ include '../../controller/promotionC.php';
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
               <!--PDF-->
-					<a  href="export.php"class="btn btn-warning" >Exporter les données</a>
+					<a  href="export_promo.php"class="btn btn-warning" >Exporter les données</a>
 					<br>
 					<hr>
                 <table class="table table-hover text-nowrap">
