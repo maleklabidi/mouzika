@@ -97,6 +97,9 @@ if(isset($_SESSION['id'])){
 		<tr>
 			<td colspan="3" ><h5>Lieu :<?PHP echo $circ['emplacement']; ?></h5><a style="float: right;" class="genric-btn warning" href="https://www.google.tn/maps/place/<?PHP echo $circ['emplacement']; ?>" target="_blank" > Ou Exactement?</a></td>
 		</tr>
+        <tr>
+			<td colspan="3"><h5>Artiste(s): <?PHP echo $circ['artiste']; ?></h5></td>
+		</tr>
 		<tr>
 			<td colspan="3"><h5>Le: <?PHP echo $circ['date']; ?></h5></td>
 		</tr>
@@ -106,13 +109,9 @@ if(isset($_SESSION['id'])){
 		<tr>
 			<td colspan="3"><a href="#" class="genric-btn info circle">Participer</a>   </h5><br>            
         
-            <fieldset class="rating" style="margin-left: 43.5%;">
-    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
-    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Meh">3 stars</label>
-    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
-    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
-        </fieldset>
+            <fieldset class="timer" style="margin-left: 80%;">
+            <iframe src="https://free.timeanddate.com/countdown/i7t9fv8b/n253/cf110/cm0/cu4/ct0/cs0/ca0/cr0/ss0/cac000/cpc000/pccc0/tc000/fs100/szw256/szh108/tac000/tpc000/mac000/mpc000/iso<?PHP echo $circ['date'];?>T00:00:00" allowtransparency="true" frameborder="0" width="256" height="108"></iframe>
+           </fieldset>
         
         
         
