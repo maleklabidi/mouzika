@@ -26,13 +26,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                  <a href="../Dhia/affichereven.php" class="nav-link">
+                  <a href="http://localhost/mouzika_integ/back/view/Dhia/affichereven.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Afficher Evenement</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="ajoutereven.php" class="nav-link">
+                    <a href="http://localhost/mouzika_integ/back/view/Dhia/ajoutereven.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ajouter Evenement</p>
                     </a>
@@ -48,13 +48,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="afficherpromo.php" class="nav-link">
+                    <a href="http://localhost/mouzika_integ/back/view/Dhia/afficherpromo.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Afficher Promotion</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="ajouterpromo.php" class="nav-link">
+                    <a href="http://localhost/mouzika_integ/back/view/Dhia/ajouterpromo.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Ajouter Promotion</p>
                     </a>

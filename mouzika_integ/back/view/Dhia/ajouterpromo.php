@@ -65,7 +65,7 @@ if(isset($_POST['Confirmer']))
   <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- JS CONTROL -->
-  <script defer src="../controll.js"></script>
+  <script defer src="control_promo.js"></script>
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <style>

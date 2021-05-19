@@ -1,6 +1,13 @@
 <?PHP
 	include "../../controller/evenementC.php";
 
+if(isset($_SESSION['id'])){
+    echo "LOG";
+}else{
+    echo"Not";
+}
+
+
 	$evenementC=new evenementC();
     $listepromo=$evenementC->afficherevenement(); 
 ?>
@@ -8,14 +15,7 @@
 <html class="no-js" lang="zxx">
 
 <head>
-<script>
-        function refresh()
-        {
 
- 
-        }
-    
-    </script>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<title>Musico</title>
