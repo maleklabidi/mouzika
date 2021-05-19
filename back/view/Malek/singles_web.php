@@ -9,7 +9,7 @@ include '../../controller/singlesC.php';
  
   
   $start = 0; 
-  $per_page=2;  // 9adeh men commission par page todhher
+  $per_page=4;  // 9adeh men commission par page todhher
   $page_counter = 0; 
   $next = $page_counter+1; 
   $previous = $page_counter -1; 

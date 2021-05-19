@@ -1,6 +1,6 @@
 <?php 
  include_once "../loginadmin/session.php";
-    include_once '../Controller/albumsC.php'; 
+    include_once '../../Controller/albumsC.php'; 
  
     $db = config::getConnexion();
  

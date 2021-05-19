@@ -328,31 +328,31 @@ if(isset($_POST['Confirmer']))
   <p id="error12" class = "error"></p>
   <div>
   <div class="signup-form">
-                    <form method="POST" class="register-form" id="form" enctype="multipart/form-data">
+                    <form method="POST" class="register-form" id="form" enctype="multipart/form-data" onsubmit="return validateForm()">
                         <div class="form-row">
                             <div class="form-group">
                             <div class="col-md-4">
                                 <div class="form-input">
                                     <label for="id" class="required">ID album:</label>
-                                    <input type="text" name="id" id="id" />
+                                    <input type="number" name="id" min="0" id="id" required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-input">
                                     <label for="artist" class="required">Artiste:</label>
-                                    <input type="text" name="artist" id="artist" />
+                                    <input type="text" name="artist" id="artist" required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-input">
                                     <label for="title" class="required">Titre:</label>
-                                    <input type="text" name="title" id="title" />
+                                    <input type="text" name="title" id="title" required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-input">
                                     <label for="genre" class="required">Genre:</label> 
-                                    <input type="text" name="genre" id="genre" />
+                                    <input type="text" name="genre" id="genre" required/>
                                 </div>
                             </div>
                             </div>
@@ -361,20 +361,20 @@ if(isset($_POST['Confirmer']))
                                 <div class="form-select">
                                     <div class="label-flex">
                                         <label for="number_of_songs">Nombre de chansons:</label>
-                                        <input type="text" name="number_of_songs" id="number_of_songs"><br>
+                                        <input type="number"min="1" name="number_of_songs" id="number_of_songs" required><br>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-input">
                                     <label for="release_date">Date de sortie:</label>
-                                    <input type="date" name="release_date" id="release_date" />
+                                    <input type="date" name="release_date" id="release_date" min="01/01/1900" required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-input">
                                     <label for="length">Durée:</label>
-                                    <input type="text" name="length" id="length" />
+                                    <input type="text"  name="length" id="length" required/>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -402,7 +402,7 @@ if(isset($_POST['Confirmer']))
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 } </style> 
           
-                            <input type="submit" value="Confirmer" class="submit" id="Confirmer" name="Confirmer" /> 
+                            <input type="submit" value="Confirmer" class="submit" id="Confirmer" name="Confirmer"/> 
            
            
                             <input type="reset" value="Reset" class="submit" id="reset" name="reset" />
@@ -474,6 +474,101 @@ if(isset($_POST['Confirmer']))
       "responsive": true,
     });
   });
+
+
+  const validateForm = () => {
+
+    let id = $('#id').val();
+    let number_of_songs = $('#number_of_songs').val();
+    let int_regex = /\d+/;
+
+    let artist = $('#artist').val();
+    let genre = $('#genre').val();
+    let artist_and_genre_regex = /^[a-zA-Z ]{2,30}$/;
+
+    let title = $('#title').val();
+    let title_regex = /^[0-9a-zA-Z ]+$/;
+
+    
+    
+    let release_date = $('#release_date').val();
+
+    
+    if (id === "") {
+        alert("ID must be filled out");
+        return false;
+    }
+ 
+    if (!artist_and_genre_regex.test(artist)) {
+      if (artist === "") {
+        alert("Artist name must be filled out");
+        return false;
+      }
+      alert("You got a really messed up name bru..");
+      return false;
+    }
+
+    if (!title_regex.test(title)) {
+      if (title === "") {
+        alert("title must be filled out");
+        return false;
+      }
+      alert("If that's the type of music you listen to, you're in dire need of help");
+      return false;
+    }
+
+    if (!artist_and_genre_regex.test(genre)) {
+      if (genre === "") {
+        alert("Genre must be filled out");
+        return false;
+      }
+      alert("That's some weird music you got there");
+      return false;
+    }
+
+
+    if (number_of_songs === "") {
+      alert("number of songs must be filled out");
+      return false;
+    }
+
+    if (release_date === "") {
+      alert("release_date must be filled out");
+      return false;
+    }
+
+    // if (!length_regex.test(length)) {
+      if (length === "") {
+        alert("length field must be filled out");
+        return false;
+      }
+    //   alert("that's one long ass album");
+    //   return false;
+    // }
+
+    // let dtToday = new Date();
+    // if (release_date > dtToday){
+    //   alert("You're not from the future asshole..");
+    // }
+
+    return true
+  }
+
+  $(function(){
+      let dtToday = new Date();
+      
+      let month = dtToday.getMonth() + 1;
+      let day = dtToday.getDate();
+      let year = dtToday.getFullYear();
+      if(month < 10)
+          month = '0' + month.toString();
+      if(day < 10)
+          day = '0' + day.toString();
+      
+      let maxDate = year + '-' + month + '-' + day;
+      $('#release_date').attr('max', maxDate);
+  });
+
 </script>
 </body>
 </html>
