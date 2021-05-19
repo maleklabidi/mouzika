@@ -100,12 +100,31 @@
           
            <!-- Wissal-->
               <li class="nav-item">
-                <a href="http://localhost/mouzika_integ/back/view/views/forum.php" class="nav-link">
+                <a href="http://localhost/mouzika_integ/back/view/aziz/ajouterartiste" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>BLOG</p>
+                  <p>nouveau artiste</p>
                 </a>
               </li>
-         
+         <!-- Aziz-->
+         <li class="nav-item">
+                <a href="http://localhost/mouzika_integ/back/view/aziz/affichageartiste.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>artistes</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="http://localhost/mouzika_integ/back/view/aziz/ajouterreservation.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>nouvelle reservation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="http://localhost/mouzika_integ/back/view/aziz/afficherreservation.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>reservations</p>
+                </a>
+              </li>
+            
 
 
       </nav>

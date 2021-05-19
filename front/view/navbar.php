@@ -54,6 +54,7 @@ include_once "login/session.php";
                                             </li>
                                             <!-- CART ?? -->
                                             <li><a href="http://localhost/mouzika_integ/front/view/Mahmoud/index.php">Shopping Cart</a></li>
+                                            <li><a href="http://localhost/mouzika_integ/front/view/aziz/afficherartistes.php">Artiste</a></li>
 
                                             <!-- ENNNNNNDDDD NAVBAR-->
                                         </ul>
